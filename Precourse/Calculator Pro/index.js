@@ -1,16 +1,6 @@
 let newNumber;
 let numberList = [];
 
-//para los datos no válidos introducidos, se filtra y no se incluye en el array
-do {
-    newNumber = prompt("Introduce a number or press cancel to stop");
-    if (!parseInt(newNumber) && newNumber !== null) {
-        alert("Invalid number introduced");
-    } else if (parseInt(newNumber)) {
-        numberList.push(newNumber);
-    }
-} while (newNumber !== null);
-
 //definimos la función de la calculadora
 calculatorPro = () => {
     //convertir prompt a null si no se introduce ningún elemento
@@ -70,19 +60,40 @@ calculatorPro = () => {
             `The result of the division is ${division}`
         );
         showResults();
+        numberList = [];
     }
 };
 
-if (numberList.length > 0) {
-    calculatorPro();
-}
+//para los datos no válidos introducidos, se filtra y no se incluye en el array
 
-exitOrRestart = prompt("New numbers y/n");
+initialize = () => {
+    do {
+        newNumber = prompt("Introduce a number or press cancel to stop");
+        if (!parseInt(newNumber) && newNumber !== null) {
+            alert("Invalid number introduced");
+        } else if (parseInt(newNumber)) {
+            numberList.push(newNumber);
+        }
+    } while (newNumber !== null);
 
-switch (exitOrRestart) {
-    case "y":
+    if (numberList.length > 0) {
         calculatorPro();
-        break;
-    case "n":
-        "Bye!";
+    }
+};
+
+initialize();
+
+let finished = false;
+
+while (numberList.length === 0 && !finished) {
+    exitOrRestart = prompt("New numbers y/n");
+
+    switch (exitOrRestart) {
+        case "y":
+            initialize();
+            break;
+        case "n":
+            console.log("Bye!");
+            finished = true;
+    }
 }
