@@ -19,11 +19,8 @@ calculator = () => {
 
     //función para mostrar los resultados de forma amigable e iterando a través del array
     const showResults = () => {
-        console.log("Results: ");
-
-        for (let i = 0; i < result.length; i++) {
-            console.log(result[i]);
-        }
+        console.log("Results:");
+        result.forEach((e) => console.log(e));
     };
 
     //condicional para determinar que se introducen números y si no son números, comunicárselo al usuario
