@@ -1,17 +1,18 @@
+let newNumber;
+let numberList = [];
+
+//para los datos no válidos introducidos, se filtra y no se incluye en el array
+do {
+    newNumber = prompt("Introduce a number or press cancel to stop");
+    if (!parseInt(newNumber) && newNumber !== null) {
+        alert("Invalid number introduced");
+    } else if (parseInt(newNumber)) {
+        numberList.push(newNumber);
+    }
+} while (newNumber !== null);
+
+//definimos la función de la calculadora
 calculatorPro = () => {
-    let newNumber;
-    let numberList = [];
-
-    //para los datos no válidos introducidos, se filtra y no se incluye en el array
-    do {
-        newNumber = prompt("Introduce a number or press cancel to stop");
-        if (!parseInt(newNumber) && newNumber !== null) {
-            alert("Invalid number introduced");
-        } else if (parseInt(newNumber)) {
-            numberList.push(newNumber);
-        }
-    } while (newNumber !== null);
-
     //convertir prompt a null si no se introduce ningún elemento
     for (let i = 0; i < numberList.length; i++) {
         numberList[i] = numberList[i] == "" ? null : parseInt(numberList[i]);
@@ -37,7 +38,7 @@ calculatorPro = () => {
 
     //caso: solo se introduce un valor -> devuelve raíz cuadrada del valor
     if (numberList.length === 1) {
-        let squareRoot = round(Math.sqrt(prompt1));
+        let squareRoot = round(Math.sqrt(numberList[0]));
         result.push(`The result of the square root is ${squareRoot}`);
         showResults();
 
@@ -68,9 +69,20 @@ calculatorPro = () => {
             `The result of the multiplication is ${multiplication}`,
             `The result of the division is ${division}`
         );
+        showResults();
     }
-
-    showResults();
 };
 
-calculatorPro();
+if (numberList.length > 0) {
+    calculatorPro();
+}
+
+exitOrRestart = prompt("New numbers y/n");
+
+switch (exitOrRestart) {
+    case "y":
+        calculatorPro();
+        break;
+    case "n":
+        "Bye!";
+}
