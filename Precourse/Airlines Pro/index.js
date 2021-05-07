@@ -115,7 +115,7 @@ const showLastFiveDestinations = () => {
 
 showLastFiveDestinations();
 
-{
+const findRole = () => {
     const role = prompt("Are you an ADMIN or an USER?").toUpperCase();
     switch (role) {
         case "ADMIN":
@@ -124,4 +124,6 @@ showLastFiveDestinations();
         case "USER":
             console.log("You are an user");
     }
-}
+};
+
+findRole();
