@@ -127,7 +127,7 @@ const showFlightInfo = () => {
             stopover = "has no stopover";
         }
         console.log(
-            `The flight with an Id ${e.id}, origin ${e.origin} and destination ${e.destination} has a price of ${e.price} Euros and ${stopover}`
+            `The flight with ID ${e.id}, origin ${e.origin} and destination ${e.destination} has a price of ${e.price} Euros and ${stopover}`
         );
     });
 };
@@ -246,7 +246,6 @@ const createFlight = () => {
                 }
                 break;
             case "N":
-                alert("Bye!");
                 break;
             case null:
                 break;
@@ -292,7 +291,10 @@ const deleteFlight = () => {
                     alert("Bye!");
                 default:
                     flights.splice(value, 1);
-                    console.log(`Flight with Id ${value} succesfully removed`);
+                    console.log(
+                        `Flight with ID ${value} succesfully removed. Reassigning IDs`
+                    );
+                    idAssign();
                     break;
             }
     }
