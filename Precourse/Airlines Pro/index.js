@@ -1,5 +1,4 @@
-//definir la existencia de los vuelos (stopover = escala)
-
+//definir los vuelos (stopover = escala)
 let flights = [
     {
         id: 1,
@@ -73,19 +72,23 @@ let flights = [
     },
 ];
 
+//función que compruebe si el campo esté vacío, y si es así, muestre advertencia al usuario
 const checkIfEmpty = (value, message) => {
     while (value === "") {
         alert("Please, insert a value to continue");
         value = prompt(message);
     }
+    if (value === null) {
+        alert("Bye!");
+    }
 };
 
-//preguntar por el nombre del usuario y dar la bienvenida vía prompt\
-
+//función para hacer la primera letra de parámetro n mayúscula
 const capitalize = (n) => {
     return n.charAt(0).toUpperCase() + n.slice(1);
 };
 
+//función para preguntar por el nombre del usuario y dar la bienvenida vía prompt
 const welcomeMessage = () => {
     let nameOfClient = prompt("Welcome to Skylab Airlines! What is your name?");
     if (nameOfClient === null) {
@@ -96,9 +99,10 @@ const welcomeMessage = () => {
     }
 };
 
+//definimos a nivel global nameOfClient con el valor otorgado por la función welcomeMessage()
 nameOfClient = welcomeMessage();
 
-//mostrarle la información de los vuelos al usuario
+//función para mostrarle la información de los vuelos al usuario iterando a través del objeto
 const showFlightInfo = () => {
     console.log(
         `Hello ${nameOfClient}, the information regarding the flights is the following:`
@@ -116,10 +120,8 @@ const showFlightInfo = () => {
         );
     });
 };
-// console.log(nameOfClient);
 
-//mostrar coste medio de los vuelos
-
+//función para mostrar coste medio de los vuelos
 const averageFlightCost = () => {
     let sum = 0;
 
@@ -131,7 +133,7 @@ const averageFlightCost = () => {
     console.log(`The average cost of the flights is ${averageCost} Euros`);
 };
 
-//cuántos vuelos hacen escala
+//función para comprobar cuántos vuelos hacen escala
 const stopOvers = () => {
     let stopoverCount = 0;
 
@@ -143,7 +145,7 @@ const stopOvers = () => {
     console.log(`A total of ${stopoverCount} flights have a stopover`);
 };
 
-//mostrar últimos 5 vuelos del día
+//función para mostrar últimos 5 vuelos del día y añadirlos al objeto flights
 const showLastFiveDestinations = () => {
     let lastFiveFlights = flights.slice(-5);
 
@@ -157,6 +159,7 @@ const showLastFiveDestinations = () => {
     );
 };
 
+//función para obtener el rol del usuario (admin o user)
 const findRole = () => {
     let role = prompt("Are you an ADMIN or an USER?");
     if (role !== null) {
@@ -183,6 +186,7 @@ const findRole = () => {
     }
 };
 
+//función para introducir si el vuelo tiene escalas o no convirtiendo el input del usuario en boolean
 const introduceStopover = (e) => {
     e.stopover = prompt("Stopover? Y/N").toUpperCase();
     if (e.stopover !== null) {
@@ -204,6 +208,7 @@ const introduceStopover = (e) => {
     }
 };
 
+//función para crear un nuevo vuelo
 const createFlight = () => {
     //si hay menos de 15 vuelos existentes
     if (flights.length <= 15) {
@@ -243,6 +248,7 @@ const createFlight = () => {
     }
 };
 
+//función para borrar un vuelo !! pendiente de debuggear
 const deleteFlight = (value) => {
     for (let i = 0; i < flights.length; i++) {
         console.log(flights[i].id);
@@ -252,6 +258,7 @@ const deleteFlight = (value) => {
     }
 };
 
+//función con el programa principal
 const airlinesProgram = () => {
     switch (nameOfClient) {
         case null:
@@ -276,6 +283,7 @@ const airlinesProgram = () => {
     console.log(flights);
 };
 
+//llamada al programa principal
 airlinesProgram();
 
 deleteFlight(1);
