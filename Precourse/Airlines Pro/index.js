@@ -1,76 +1,87 @@
 //definir los vuelos (stopover = escala)
 let flights = [
     {
-        id: 1,
+        id: 0,
         origin: "Madrid",
         destination: "Barcelona",
         price: 150,
         stopover: false,
     },
     {
-        id: 2,
+        id: 0,
         origin: "Madrid",
         destination: "Paris",
         price: 250,
         stopover: false,
     },
     {
-        id: 3,
+        id: 0,
         origin: "Barcelona",
         destination: "Madrid",
         price: 200,
         stopover: false,
     },
     {
-        id: 4,
+        id: 0,
         origin: "Lisboa",
         destination: "Madrid",
         price: 180,
         stopover: false,
     },
     {
-        id: 5,
+        id: 0,
         origin: "Barcelona",
         destination: "Paris",
         price: 300,
         stopover: true,
     },
     {
-        id: 6,
+        id: 0,
         origin: "Paris",
         destination: "Madrid",
         price: 80,
         stopover: true,
     },
     {
-        id: 7,
+        id: 0,
         origin: "London",
         destination: "Barcelona",
         price: 100,
         stopover: true,
     },
     {
-        id: 8,
+        id: 0,
         origin: "Rome",
         destination: "Barcelona",
         price: 50,
         stopover: false,
     },
     {
-        id: 9,
+        id: 0,
         origin: "Madrid",
         destination: "Rome",
         price: 90,
         stopover: false,
     },
     {
-        id: 10,
+        id: 0,
         origin: "Barcelona",
         destination: "London",
         price: 270,
         stopover: true,
     },
 ];
+
+//función para asignar ids en base al índice del elemento
+
+const idAssign = () => {
+    flights.forEach((e) => {
+        e.id = flights.indexOf(e);
+    });
+};
+
+//llamamos a la función para que se asignen los id
+idAssign();
 
 //función que compruebe si el campo esté vacío, y si es así, muestre advertencia al usuario
 const checkIfEmpty = (value, message) => {
@@ -116,7 +127,7 @@ const showFlightInfo = () => {
             stopover = "has no stopover";
         }
         console.log(
-            `The flight with origin ${e.origin} and destination ${e.destination} has a price of ${e.price} Euros and ${stopover}`
+            `The flight with an Id ${e.id}, origin ${e.origin} and destination ${e.destination} has a price of ${e.price} Euros and ${stopover}`
         );
     });
 };
@@ -170,6 +181,7 @@ const findRole = () => {
         case "ADMIN":
             console.log("You are an admin");
             createFlight();
+            deleteFlight();
             break;
         case "USER":
             console.log("You are an user");
@@ -226,7 +238,6 @@ const createFlight = () => {
                 newFlight.price = parseInt(prompt("Price:"));
                 introduceStopover(newFlight);
                 flights.push(newFlight);
-                console.log(flights);
                 //Al terminar se pregunta si quiere continuar añadiendo vuelos o, si ya hay 15 vuelos, se muestra una alerta indicándolo.
                 if (flights.length <= 15) {
                     createFlight();
@@ -238,7 +249,6 @@ const createFlight = () => {
                 alert("Bye!");
                 break;
             case null:
-                alert("Bye!");
                 break;
             default:
                 alert("Introduce a valid value: (Y / N)");
@@ -248,13 +258,43 @@ const createFlight = () => {
     }
 };
 
-//función para borrar un vuelo !! pendiente de debuggear
-const deleteFlight = (value) => {
-    for (let i = 0; i < flights.length; i++) {
-        console.log(flights[i].id);
-        if (flights[i].id === parseInt(value - 1)) {
-            console.log("remove");
-        }
+//función para borrar un vuelo
+const deleteFlight = () => {
+    let deleteOrNot = prompt("Do you want to delete a flight? Y/N");
+    if (deleteOrNot !== null) {
+        deleteOrNot = deleteOrNot.toUpperCase();
+    }
+
+    switch (deleteOrNot) {
+        case null:
+            alert("Bye!");
+            break;
+        case "":
+            checkIfEmpty(deleteOrNot, "Do you want to delete a flight? Y/N");
+            break;
+        default:
+            let value = prompt(
+                "Insert the ID of the flight that you want to delete: "
+            );
+
+            if (value !== null && value !== "") {
+                value = parseInt(value);
+            }
+
+            switch (value) {
+                case "":
+                    checkIfEmpty(
+                        value,
+                        "Insert the ID of the flight that you want to delete: "
+                    );
+                    break;
+                case null:
+                    alert("Bye!");
+                default:
+                    flights.splice(value, 1);
+                    console.log(`Flight with Id ${value} succesfully removed`);
+                    break;
+            }
     }
 };
 
@@ -280,10 +320,7 @@ const airlinesProgram = () => {
             findRole();
             break;
     }
-    console.log(flights);
 };
 
 //llamada al programa principal
 airlinesProgram();
-
-deleteFlight(1);
