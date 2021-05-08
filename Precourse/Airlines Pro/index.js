@@ -4,7 +4,7 @@ let flights = [
         id: 0,
         origin: "Madrid",
         destination: "Barcelona",
-        price: 150,
+        price: 300,
         stopover: false,
     },
     {
@@ -113,6 +113,16 @@ const welcomeMessage = () => {
 //definimos a nivel global nameOfClient con el valor otorgado por la función welcomeMessage()
 nameOfClient = welcomeMessage();
 
+const hasStopover = (values) => {
+    let stopover = "";
+    if (values.stopover) {
+        stopover = "has a stopover";
+    } else {
+        stopover = "has no stopover";
+    }
+    return stopover;
+};
+
 //función para mostrarle la información de los vuelos al usuario iterando a través del objeto
 const showFlightInfo = () => {
     console.log(
@@ -120,14 +130,10 @@ const showFlightInfo = () => {
     );
 
     flights.forEach((e) => {
-        let stopover = "";
-        if (e.stopover) {
-            stopover = "has a stopover";
-        } else {
-            stopover = "has no stopover";
-        }
         console.log(
-            `The flight with ID ${e.id}, origin ${e.origin} and destination ${e.destination} has a price of ${e.price} Euros and ${stopover}`
+            `The flight with ID ${e.id}, origin ${e.origin} and destination ${
+                e.destination
+            } has a price of ${e.price} Euros and ${hasStopover(e)}`
         );
     });
 };
@@ -182,9 +188,11 @@ const findRole = () => {
             console.log("You are an admin");
             createFlight();
             deleteFlight();
+            alert("Bye!");
             break;
         case "USER":
             console.log("You are an user");
+            searchPrice();
             break;
         case null:
             alert("Bye!");
@@ -297,6 +305,95 @@ const deleteFlight = () => {
                     idAssign();
                     break;
             }
+    }
+};
+
+//función para buscar vuelos por precio
+const searchPrice = () => {
+    let searchPrice = prompt(
+        "Do you want to search for a flight by price? Y/N"
+    );
+
+    if (searchPrice !== null) {
+        searchPrice = searchPrice.toUpperCase();
+    }
+
+    switch (searchPrice) {
+        case null:
+            alert("Bye! Thank you for your visit!");
+            break;
+        case "":
+            checkIfEmpty(
+                searchPrice,
+                "Do you want to search for a flight by price? Y/N"
+            );
+            break;
+        case "N":
+            alert("Bye! Thank you for your visit!");
+            break;
+        case "Y":
+            let searchType = prompt(
+                "Introduce one of the following options: 'HIGHEST' 'LOWEST' 'EXACT PRICE'"
+            );
+            if (searchType !== null) {
+                searchType = searchType.toUpperCase();
+            }
+            switch (searchType) {
+                case null:
+                    alert("Bye!");
+                    break;
+                case "":
+                    checkIfEmpty(searchType);
+                    break;
+                case "HIGHEST":
+                    let highestPrice = Math.max(
+                        ...flights.map((flight) => flight.price)
+                    );
+
+                    let highestFlight = flights.filter(
+                        (flight) => flight.price === highestPrice
+                    );
+
+                    if (highestFlight.length === 1) {
+                        console.log(
+                            `The flight with the highest price has a price of ${
+                                highestFlight[0].price
+                            }, origin ${highestFlight[0].origin}, destination ${
+                                highestFlight[0].destination
+                            }, ID ${hasStopover(highestFlight[0])}`
+                        );
+                    } else if (highestFlight.length > 1) {
+                        console.log(
+                            `The flights with the highest prices are the following: `
+                        );
+                        highestFlight.forEach((flight) => {
+                            console.log(
+                                `ID ${flight.id}, origin ${
+                                    flight.origin
+                                }, destination ${
+                                    flight.destination
+                                }, a price of ${
+                                    flight.price
+                                } Euros and ${hasStopover(flight)}`
+                            );
+                        });
+                    }
+
+                    break;
+                case "LOWEST":
+                    break;
+                case "EXACT PRICE":
+                    break;
+                default:
+                    alert("Introduce a valid value: (Y / N)");
+                    searchType();
+                    break;
+            }
+            break;
+        default:
+            alert("Introduce a valid value: (Y / N)");
+            searchPrice();
+            break;
     }
 };
 
