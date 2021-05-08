@@ -80,7 +80,11 @@ const checkIfEmpty = (value, message) => {
     }
 };
 
-//preguntar por el nombre del usuario y dar la bienvenida vía prompt
+//preguntar por el nombre del usuario y dar la bienvenida vía prompt\
+
+const capitalize = (n) => {
+    return n.charAt(0).toUpperCase() + n.slice(1);
+};
 
 const welcomeMessage = () => {
     let nameOfClient = prompt("Welcome to Skylab Airlines! What is your name?");
@@ -88,15 +92,11 @@ const welcomeMessage = () => {
         alert("Bye!");
         return nameOfClient;
     } else {
-        return nameOfClient;
+        return capitalize(nameOfClient);
     }
 };
 
-const capitalize = (n) => {
-    return n.charAt(0).toUpperCase() + n.slice(1);
-};
-
-nameOfClient = capitalize(welcomeMessage());
+nameOfClient = welcomeMessage();
 
 //mostrarle la información de los vuelos al usuario
 const showFlightInfo = () => {
@@ -158,10 +158,11 @@ const showLastFiveDestinations = () => {
 };
 
 const findRole = () => {
-    const role = prompt("Are you an ADMIN or an USER?");
-    if (role == !null) {
+    let role = prompt("Are you an ADMIN or an USER?");
+    if (role !== null) {
         role = role.toUpperCase();
     }
+
     switch (role) {
         case "ADMIN":
             console.log("You are an admin");
@@ -182,42 +183,43 @@ const findRole = () => {
     }
 };
 
+const introduceStopover = (e) => {
+    e.stopover = prompt("Stopover? Y/N").toUpperCase();
+    if (e.stopover !== null) {
+        return (e.stopover = e.stopover.toUpperCase());
+    }
+    switch (e.stopover) {
+        case "Y":
+            e.stopover = true;
+            break;
+        case "N":
+            e.stopover = false;
+            break;
+        case null:
+            alert("Bye!");
+            break;
+        default:
+            alert("Introduce a valid value: (Y / N)");
+            introduceStopover();
+    }
+};
+
 const createFlight = () => {
     //si hay menos de 15 vuelos existentes
     if (flights.length <= 15) {
         //prompt que pregunta al usuario si quiere introducir un nuevo vuelo
         let newFlight = prompt("Want to introduce a new flight? Y/N");
-        if (newFlight !== null) {
-            //en caso de que no se de a cancelar, que convierta a mayúsculas para evitar el case sensitivity
-            newFlight = newFlight.toUpperCase();
-        }
 
         //switch con los diferentes casos posibles (Y, N, otro valor, vacío o null(cancelar))
-        switch (newFlight) {
+        switch (newFlight.toUpperCase()) {
             //caso Y => se le piden los nuevos datos del nuevo vuelo (nuevo objeto) y se empuja al final del array de flights.
             case "Y":
                 let newFlight = {};
                 newFlight.id = flights[flights.length - 1].id + 1;
-                val = prompt(message);
-                checkIfEmpty(newFlight.origin, "Origin:");
-
+                newFlight.origin = prompt("Origin");
                 newFlight.destination = prompt("Destination:");
-                newFlight.price = prompt("Price:");
-                newFlight.price = parseInt(newFlight.price);
-                const introduceStopover = () => {
-                    newFlight.stopover = prompt("Stopover? Y/N").toUpperCase;
-                    switch (newFlight.stopover) {
-                        case "Y":
-                            newFlight.stopover = true;
-                            break;
-                        case "N":
-                            newFlight.stopover = false;
-                            break;
-                        default:
-                            alert("Introduce a valid value: (Y / N)");
-                            introduceStopover();
-                    }
-                };
+                newFlight.price = parseInt(prompt("Price:"));
+                introduceStopover(newFlight);
                 flights.push(newFlight);
                 console.log(flights);
                 //Al terminar se pregunta si quiere continuar añadiendo vuelos o, si ya hay 15 vuelos, se muestra una alerta indicándolo.
@@ -237,6 +239,15 @@ const createFlight = () => {
                 alert("Introduce a valid value: (Y / N)");
                 createFlight();
                 break;
+        }
+    }
+};
+
+const deleteFlight = (value) => {
+    for (let i = 0; i < flights.length; i++) {
+        console.log(flights[i].id);
+        if (flights[i].id === parseInt(value - 1)) {
+            console.log("remove");
         }
     }
 };
@@ -262,6 +273,9 @@ const airlinesProgram = () => {
             findRole();
             break;
     }
+    console.log(flights);
 };
 
 airlinesProgram();
+
+deleteFlight(1);
