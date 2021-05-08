@@ -360,7 +360,9 @@ const searchPrice = () => {
                                 highestFlight[0].price
                             }, origin ${highestFlight[0].origin}, destination ${
                                 highestFlight[0].destination
-                            }, ID ${hasStopover(highestFlight[0])}`
+                            }, ID ${highestFlight[0].id} and ${hasStopover(
+                                highestFlight[0]
+                            )}`
                         );
                     } else if (highestFlight.length > 1) {
                         console.log(
@@ -381,21 +383,100 @@ const searchPrice = () => {
 
                     break;
                 case "LOWEST":
+                    let lowestPrice = Math.min(
+                        ...flights.map((flight) => flight.price)
+                    );
+                    let lowestFlight = flights.filter(
+                        (flight) => flight.price === lowestPrice
+                    );
+                    if (lowestFlight.length === 1) {
+                        console.log(
+                            `The flight with the lowest price has a price of ${
+                                lowestFlight[0].price
+                            }, origin ${lowestFlight[0].origin}, destination ${
+                                lowestFlight[0].destination
+                            }, ID ${lowestFlight[0].id} and ${hasStopover(
+                                lowestFlight[0]
+                            )}`
+                        );
+                    } else if (lowestFlight.length > 1) {
+                        console.log(
+                            `The flights with the lowest prices are the following: `
+                        );
+                        lowestFlight.forEach((flight) => {
+                            console.log(
+                                `ID ${flight.id}, origin ${
+                                    flight.origin
+                                }, destination ${
+                                    flight.destination
+                                }, a price of ${
+                                    flight.price
+                                } Euros and ${hasStopover(flight)}`
+                            );
+                        });
+                    }
                     break;
                 case "EXACT PRICE":
+                    let priceSearched = prompt("Introduce a price to search: ");
+                    if (priceSearched !== "" && priceSearched !== null) {
+                        priceSearched = parseInt(priceSearched);
+                    }
+                    switch (priceSearched) {
+                        case null:
+                            alert("Bye!");
+                            break;
+                        case "":
+                            checkIfEmpty(
+                                priceSearched,
+                                "Introduce a price to search: "
+                            );
+                            break;
+                        default:
+                            let exactPrice = flights.filter(
+                                (flight) => flight.price === priceSearched
+                            );
+
+                            if (exactPrice.length === 1) {
+                                console.log(
+                                    `The flight that has the same price  (${
+                                        exactPrice[0].price
+                                    }) has an origin ${
+                                        exactPrice[0].origin
+                                    }, destination ${
+                                        exactPrice[0].destination
+                                    }, ID ${exactPrice[0].i} and ${hasStopover(
+                                        exactPrice[0]
+                                    )}`
+                                );
+                            } else if (exactPrice.length > 1) {
+                                console.log(
+                                    "The flights that have the same price as the one searched are the following:"
+                                );
+
+                                exactPrice.forEach((flight) =>
+                                    console.log(
+                                        `ID ${flight.id}, origin ${
+                                            flight.origin
+                                        }, destination ${
+                                            flight.destination
+                                        }, a price of ${
+                                            flight.price
+                                        } Euros and ${hasStopover(flight)}`
+                                    )
+                                );
+                            }
+                            break;
+                    }
                     break;
                 default:
                     alert("Introduce a valid value: (Y / N)");
-                    searchType();
+                    searchPrice();
                     break;
             }
-            break;
-        default:
-            alert("Introduce a valid value: (Y / N)");
-            searchPrice();
-            break;
     }
 };
+
+const purchase = () => {};
 
 //función con el programa principal
 const airlinesProgram = () => {
