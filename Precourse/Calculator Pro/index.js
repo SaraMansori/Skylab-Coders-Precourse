@@ -19,11 +19,9 @@ calculatorPro = () => {
 
     //función para mostrar los resultados de forma amigable e iterando a través del array
     const showResults = () => {
-        console.log("Results: ");
-
-        for (let i = 0; i < result.length; i++) {
-            console.log(result[i]);
-        }
+        console.log(
+            `Results: ${result[0]}, ${result[1]}, ${result[2]} and the ${result[3]} `
+        );
     };
 
     //caso: solo se introduce un valor -> devuelve raíz cuadrada del valor
@@ -54,10 +52,10 @@ calculatorPro = () => {
         }
 
         result.push(
-            `The result of the sum is ${sum}`,
-            `The result of the substraction is ${substraction}`,
-            `The result of the multiplication is ${multiplication}`,
-            `The result of the division is ${division}`
+            `the result of the sum is ${sum}`,
+            `the result of the substraction is ${substraction}`,
+            `the result of the multiplication is ${multiplication}`,
+            `the result of the division is ${division}`
         );
         showResults();
         numberList = [];

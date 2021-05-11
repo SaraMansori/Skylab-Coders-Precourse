@@ -73,7 +73,6 @@ let flights = [
 ];
 
 //función para asignar ids en base al índice del elemento
-
 const idAssign = () => {
     flights.forEach((e) => {
         e.id = flights.indexOf(e);
