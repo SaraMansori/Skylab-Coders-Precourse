@@ -457,7 +457,25 @@ const searchPrice = () => {
     }
 };
 
-const purchase = () => {};
+const purchase = () => {
+    purchasedFlight = prompt(
+        "Introduce the ID of the flight that you want to purchase: "
+    );
+    switch (purchasedFlight) {
+        case null:
+            break;
+        case "":
+            checkIfEmpty(
+                purchasedFlight,
+                "Introduce the ID of the flight that you want to purchase: "
+            );
+            break;
+        default:
+            Number.parseInt(purchasedFlight);
+            console.log(purchasedFlight);
+            alert("Thank you for your purchase, come back soon!");
+    }
+};
 
 //función con el programa principal
 const airlinesProgram = () => {
