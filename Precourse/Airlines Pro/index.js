@@ -220,10 +220,13 @@ const createFlight = () => {
                 let newFlight = {};
                 newFlight.id = flights[flights.length - 1].id + 1;
                 newFlight.origin = prompt("Origin");
+                newFlight.origin = capitalize(newFlight.origin);
                 newFlight.destination = prompt("Destination:");
-                newFlight.price = parseInt(prompt("Price:"));
+                newFlight.destination = capitalize(newFlight.destination);
+                newFlight.price = parseFloat(prompt("Price:"));
                 introduceStopover(newFlight);
                 flights.push(newFlight);
+                alert(`New flight with ID ${newFlight.id} added succesfully`);
                 //Al terminar se pregunta si quiere continuar añadiendo vuelos o, si ya hay 15 vuelos, se muestra una alerta indicándolo.
                 if (flights.length <= 15) {
                     createFlight();
