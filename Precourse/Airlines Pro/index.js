@@ -178,7 +178,20 @@ const findRole = () => {
     if (role !== null) {
         role = role.toUpperCase();
     }
-    return role;
+
+    switch (role) {
+        case null:
+            break;
+        case "":
+            checkIfEmpty(role, "Are you an ADMIN or an USER?");
+            break;
+        default:
+            alert("Please introduce a valid value (ADMIN/USER)");
+            findRole();
+        case "ADMIN":
+        case "USER":
+            return role;
+    }
 };
 
 //función para introducir si el vuelo tiene escalas o no convirtiendo el input del usuario en boolean
@@ -335,12 +348,20 @@ const searchPrice = () => {
                     let lowerPrice = flights.filter(
                         (flight) => flight.price < priceSearched
                     );
+
                     console.log(`With higher price: `);
-                    showFlightInfo(higherPrice);
+                    higherPrice.length === 0
+                        ? console.log("No flights found")
+                        : showFlightInfo(higherPrice);
                     console.log(`With the exact price: \n`);
-                    showFlightInfo(exactPrice);
+                    exactPrice.length === 0
+                        ? console.log("No flights found")
+                        : showFlightInfo(exactPrice);
                     console.log(`With lower price:`);
-                    showFlightInfo(lowerPrice);
+                    lowerPrice.length === 0
+                        ? console.log("No flights found")
+                        : showFlightInfo(lowerPrice);
+
                     break;
             }
             break;
@@ -366,8 +387,9 @@ const purchase = () => {
             break;
         default:
             Number.parseInt(purchasedFlight);
-            console.log(purchasedFlight);
-            alert("Thank you for your purchase, come back soon!");
+            alert(
+                `You purchased the flight with the ID ${purchasedFlight}.\nThank you for the purchase, come back soon!`
+            );
     }
 };
 
@@ -403,15 +425,6 @@ const airlinesProgram = () => {
                     searchPrice();
                     purchase();
                     break;
-                case null:
-                    alert("Bye!");
-                    break;
-                case "":
-                    checkIfEmpty(role, "Are you an ADMIN or an USER?");
-                    break;
-                default:
-                    alert("Plase introduce a valid value (ADMIN/USER)");
-                    findRole();
             }
     }
 };
