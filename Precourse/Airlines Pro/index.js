@@ -8,63 +8,63 @@ let flights = [
         stopover: false,
     },
     {
-        id: 0,
+        id: 1,
         origin: "Madrid",
         destination: "Paris",
         price: 250,
         stopover: false,
     },
     {
-        id: 0,
+        id: 2,
         origin: "Barcelona",
         destination: "Madrid",
         price: 200,
         stopover: false,
     },
     {
-        id: 0,
+        id: 3,
         origin: "Lisboa",
         destination: "Madrid",
         price: 180,
         stopover: false,
     },
     {
-        id: 0,
+        id: 4,
         origin: "Barcelona",
         destination: "Paris",
         price: 300,
         stopover: true,
     },
     {
-        id: 0,
+        id: 5,
         origin: "Paris",
         destination: "Madrid",
         price: 80,
         stopover: true,
     },
     {
-        id: 0,
+        id: 6,
         origin: "London",
         destination: "Barcelona",
         price: 100,
         stopover: true,
     },
     {
-        id: 0,
+        id: 7,
         origin: "Rome",
         destination: "Barcelona",
         price: 50,
         stopover: false,
     },
     {
-        id: 0,
+        id: 8,
         origin: "Madrid",
         destination: "Rome",
         price: 90,
         stopover: false,
     },
     {
-        id: 0,
+        id: 9,
         origin: "Barcelona",
         destination: "London",
         price: 270,
@@ -72,15 +72,15 @@ let flights = [
     },
 ];
 
-//función para asignar ids en base al índice del elemento
-const idAssign = () => {
-    flights.forEach((e) => {
-        e.id = flights.indexOf(e);
-    });
-};
+// //función para asignar ids en base al índice del elemento
+// const idAssign = () => {
+//     flights.forEach((e) => {
+//         e.id = flights.indexOf(e);
+//     });
+// };
 
-//llamamos a la función para que se asignen los id
-idAssign();
+// //llamamos a la función para que se asignen los id
+// idAssign();
 
 //función que compruebe si el campo esté vacío, y si es así, muestre advertencia al usuario
 const checkIfEmpty = (value, message) => {
@@ -99,7 +99,7 @@ const capitalize = (n) => {
 };
 
 //función para preguntar por el nombre del usuario y dar la bienvenida vía prompt
-const welcomeMessage = () => {
+const userName = () => {
     let nameOfClient = prompt("Welcome to Skylab Airlines! What is your name?");
     if (nameOfClient === null) {
         alert("Bye!");
@@ -109,9 +109,10 @@ const welcomeMessage = () => {
     }
 };
 
-//definimos a nivel global nameOfClient con el valor otorgado por la función welcomeMessage()
-nameOfClient = welcomeMessage();
+//definimos a nivel global nameOfClient con el valor otorgado por la función userName()
+nameOfClient = userName();
 
+//función para traducir el boolean del objeto flights.stopover a un string
 const hasStopover = (values) => {
     let stopover = "";
     if (values.stopover) {
@@ -181,35 +182,14 @@ const findRole = () => {
     if (role !== null) {
         role = role.toUpperCase();
     }
-
-    switch (role) {
-        case "ADMIN":
-            console.log("You are an admin");
-            createFlight();
-            deleteFlight();
-            alert("Bye!");
-            break;
-        case "USER":
-            console.log("You are an user");
-            searchPrice();
-            break;
-        case null:
-            alert("Bye!");
-            break;
-        case "":
-            checkIfEmpty(role, "Are you an ADMIN or an USER?");
-            break;
-        default:
-            alert("Plase introduce a valid value (ADMIN/USER)");
-            findRole();
-    }
+    return role;
 };
 
 //función para introducir si el vuelo tiene escalas o no convirtiendo el input del usuario en boolean
 const introduceStopover = (e) => {
-    e.stopover = prompt("Stopover? Y/N").toUpperCase();
+    e.stopover = prompt("Stopover? Y/N");
     if (e.stopover !== null) {
-        return (e.stopover = e.stopover.toUpperCase());
+        e.stopover = e.stopover.toUpperCase();
     }
     switch (e.stopover) {
         case "Y":
@@ -219,11 +199,10 @@ const introduceStopover = (e) => {
             e.stopover = false;
             break;
         case null:
-            alert("Bye!");
             break;
         default:
             alert("Introduce a valid value: (Y / N)");
-            introduceStopover();
+            introduceStopover(e);
     }
 };
 
@@ -253,7 +232,6 @@ const createFlight = () => {
                 }
                 break;
             case "N":
-                break;
             case null:
                 break;
             default:
@@ -278,13 +256,15 @@ const deleteFlight = () => {
         case "":
             checkIfEmpty(deleteOrNot, "Do you want to delete a flight? Y/N");
             break;
-        default:
+        case "N":
+            break;
+        case "Y":
             let value = prompt(
                 "Insert the ID of the flight that you want to delete: "
             );
 
             if (value !== null && value !== "") {
-                value = parseInt(value);
+                value = parseFloat(value);
             }
 
             switch (value) {
@@ -298,10 +278,8 @@ const deleteFlight = () => {
                     alert("Bye!");
                 default:
                     flights.splice(value, 1);
-                    console.log(
-                        `Flight with ID ${value} succesfully removed. Reassigning IDs`
-                    );
-                    idAssign();
+                    console.log(`Flight with ID ${value} succesfully removed.`);
+                    // idAssign();
                     break;
             }
     }
@@ -418,7 +396,7 @@ const searchPrice = () => {
                 case "EXACT PRICE":
                     let priceSearched = prompt("Introduce a price to search: ");
                     if (priceSearched !== "" && priceSearched !== null) {
-                        priceSearched = parseInt(priceSearched);
+                        priceSearched = parseFloat(priceSearched);
                     }
                     switch (priceSearched) {
                         case null:
@@ -496,8 +474,25 @@ const airlinesProgram = () => {
             averageFlightCost();
             stopOvers();
             showLastFiveDestinations();
-            findRole();
-            break;
+            switch (findRole()) {
+                case "ADMIN":
+                    createFlight();
+                    deleteFlight();
+                    alert("Bye!");
+                    break;
+                case "USER":
+                    searchPrice();
+                    break;
+                case null:
+                    alert("Bye!");
+                    break;
+                case "":
+                    checkIfEmpty(role, "Are you an ADMIN or an USER?");
+                    break;
+                default:
+                    alert("Plase introduce a valid value (ADMIN/USER)");
+                    findRole();
+            }
     }
 };
 
