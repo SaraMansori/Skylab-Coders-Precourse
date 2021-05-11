@@ -277,8 +277,9 @@ const deleteFlight = () => {
                 case null:
                     alert("Bye!");
                 default:
-                    flights.splice(value, 1);
+                    flights = flights.filter((x) => x.id !== value);
                     console.log(`Flight with ID ${value} succesfully removed.`);
+                    console.log(flights);
                     // idAssign();
                     break;
             }
