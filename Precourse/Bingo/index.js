@@ -1,9 +1,11 @@
-numbersList = [];
+let numbersList = [];
 let r = 0;
 while (numbersList.length < 99) {
     r++;
     numbersList.push(r);
 }
+
+let finished = false;
 
 const bingo = () => {
     const userName = prompt("Introduce your name", "Your Name");
@@ -16,7 +18,9 @@ const bingo = () => {
 
     console.table(numbers);
 
-    nextTurn(numbers);
+    while (numbersList.length > 0 && !finished) {
+        nextTurn(numbers);
+    }
 };
 
 const nextTurn = (array) => {
@@ -25,6 +29,9 @@ const nextTurn = (array) => {
         checkNumber(number, array);
         alert(number);
         console.table(array);
+    } else {
+        alert("Bye!");
+        finished = true;
     }
 };
 
