@@ -8,19 +8,31 @@ while (numbersList.length < 99) {
 let finished = false;
 
 const bingo = () => {
-    const userName = prompt("Introduce your name", "Your Name");
-    const numbers = [];
+    // const userName = prompt("Introduce your name", "Your Name");
+    const auxArray = [];
+    const objects = [];
 
-    while (numbers.length < 15) {
+    while (auxArray.length < 15) {
         let r = Math.floor(Math.random() * 99) + 1;
-        if (numbers.indexOf(r) === -1) numbers.push(r);
+        if (auxArray.indexOf(r) === -1) {
+            objects.push({ number: r, matched: false });
+            auxArray.push(r);
+        }
     }
 
-    console.table(numbers);
+    const bingoCard = {
+        row1: objects.slice(0, 5),
+        row2: objects.slice(5, 10),
+        row3: objects.slice(10),
+    };
+    console.log(auxArray);
+    console.log(objects);
+    console.log(bingoCard.row1[0].number);
+    // console.table(bingoCard.number);
 
-    while (numbersList.length > 0 && !finished) {
-        nextTurn(numbers);
-    }
+    // while (numbersList.length > 0 && !finished) {
+    //     nextTurn(numbers);
+    // }
 };
 
 const nextTurn = (array) => {
