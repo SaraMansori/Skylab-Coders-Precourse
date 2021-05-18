@@ -1,5 +1,4 @@
 let finished = false;
-let allNumbers = listOfNumbers();
 
 //Función que genera los números del juego del 1 al 90
 
@@ -87,13 +86,18 @@ const checkNumber = (number, array) => {
 };
 
 let cardboard = cardboardNumbers();
+let allNumbers = listOfNumbers();
+const userName = prompt("Introduce your name", "Your Name");
 
 // // Programa principal
 const bingo = (numbers, cardboard) => {
-    const userName = prompt("Introduce your name", "Your Name");
     bingoCardBoard(cardboard);
-    while (numbers.length > 0 && !finished) {
-        nextTurn(numbers, cardboard);
+    if (window.confirm("Do you want to play with this cardboard?")) {
+        while (numbers.length > 0 && !finished) {
+            nextTurn(numbers, cardboard);
+        }
+    } else {
+        bingo(allNumbers, cardboard);
     }
 };
 
