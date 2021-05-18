@@ -90,18 +90,22 @@ let allNumbers = listOfNumbers();
 let cardboard = "";
 let points = 180;
 let rounds = 1;
+line = false;
 cardboardNumbers();
 const userName = prompt("Introduce your name", "Your Name");
 
 // // Programa principal
 const bingo = (numbers) => {
     bingoCardBoard(cardboard);
+    console.log(
+        `The maximum score is 180, for each round that passes, 2 points will be substracted from the score`
+    );
     if (window.confirm("Do you want to play with this cardboard?")) {
         while (numbers.length > 0 && !finished) {
             nextTurn(numbers, cardboard);
             rounds++;
             points -= 2;
-            console.log(points);
+            console.log(`Current points: ${points}`);
         }
         if (finished) {
             rounds = 1;
