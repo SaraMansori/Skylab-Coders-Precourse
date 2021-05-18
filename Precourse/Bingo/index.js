@@ -44,7 +44,7 @@ const cardboardNumbers = () => {
 
 //Creación del cartón
 const bingoCardBoard = (cardboardArray) => {
-    // console.clear();
+    console.clear();
     auxArray = cardboardArray;
     let r0 = auxArray.slice(0, 5);
     let r1 = auxArray.slice(5, 10);
@@ -90,7 +90,7 @@ cardboardNumbers();
 const userName = prompt("Introduce your name", "Your Name");
 
 // // Programa principal
-const bingo = (numbers, cardboard) => {
+const bingo = (numbers) => {
     bingoCardBoard(cardboard);
     if (window.confirm("Do you want to play with this cardboard?")) {
         while (numbers.length > 0 && !finished) {
@@ -102,4 +102,4 @@ const bingo = (numbers, cardboard) => {
     }
 };
 
-bingo(allNumbers, cardboard);
+bingo(allNumbers);
