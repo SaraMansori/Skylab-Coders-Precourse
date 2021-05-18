@@ -1,5 +1,5 @@
 //Función que genera los números del juego del 1 al 90
-const listOfNumbers = () => {
+let listOfNumbers = () => {
     let randomNumbers = [];
     while (randomNumbers.length < 90) {
         let n = Math.floor(Math.random() * 90) + 1;
@@ -7,7 +7,7 @@ const listOfNumbers = () => {
             randomNumbers.push(n);
         }
     }
-    console.log(randomNumbers);
+    return randomNumbers;
 };
 
 // Constructor de columnas
@@ -52,14 +52,11 @@ const bingoCardBoard = () => {
 // Programa principal
 const bingo = () => {
     const userName = prompt("Introduce your name", "Your Name");
+    listOfNumbers = listOfNumbers();
     bingoCardBoard();
 };
 
 bingo();
-
-// console.log(auxArray);
-// console.table(objects);
-// console.log(objects);
 
 // while (numbersList.length > 0 && !finished) {
 //     nextTurn(numbers);
