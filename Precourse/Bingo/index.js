@@ -1,5 +1,9 @@
+let finished = false;
+let allNumbers = listOfNumbers();
+
 //Función que genera los números del juego del 1 al 90
-let listOfNumbers = () => {
+
+function listOfNumbers() {
     let randomNumbers = [];
     while (randomNumbers.length < 90) {
         let n = Math.floor(Math.random() * 90) + 1;
@@ -8,7 +12,7 @@ let listOfNumbers = () => {
         }
     }
     return randomNumbers;
-};
+}
 
 // Constructor de columnas
 function columns(c0, c1, c2, c3, c4) {
@@ -47,46 +51,45 @@ const bingoCardBoard = () => {
     let r1 = auxArray.slice(5, 10);
     let r2 = auxArray.slice(10);
     row(r0, r1, r2);
+    return auxArray;
 };
 
-// Programa principal
-const bingo = () => {
+//En caso de que se confirme continuar al siguiente turno, se asigna el número de newNumber, se ejecuta la función checkNumber() y se muestra el carón actualizado
+const nextTurn = (allNumbers, cardboardNumbers) => {
+    if (window.confirm("Next turn?")) {
+        let number = newNumber(allNumbers);
+        alert(number);
+        // allNumbers = checkNumber(number, allNumbers);
+        // console.table(cardboardNumbers);
+    } else {
+        alert("Bye!");
+        finished = true;
+    }
+};
+
+//Genera un índice aleatorio para escoger un número dentro del array, lo elimina del array y lo devuelve la función como variable number
+const newNumber = (array) => {
+    let index = Math.floor(Math.random() * array.length) + 1;
+    let number = array[index];
+    array.splice(index, 1);
+    return number;
+};
+
+//Evalúa si el número aleatorio está incluido en el cartón, y en caso afirmativo, lo transforma en una X
+const checkNumber = (number, array) => {
+    if (array.includes(number)) {
+        let index = array.indexOf(number);
+        array[index] = "X";
+        return array;
+    }
+};
+
+// // Programa principal
+const bingo = (numbers, cardboardNumbers) => {
     const userName = prompt("Introduce your name", "Your Name");
-    listOfNumbers = listOfNumbers();
-    bingoCardBoard();
+    while (numbers.length > 0 && !finished) {
+        nextTurn(numbers, cardboardNumbers);
+    }
 };
 
-bingo();
-
-// while (numbersList.length > 0 && !finished) {
-//     nextTurn(numbers);
-// }
-// };
-
-// const nextTurn = (array) => {
-//     if (window.confirm("Next turn?")) {
-//         let number = newNumber();
-//         checkNumber(number, array);
-//         alert(number);
-//         console.table(array);
-//     } else {
-//         alert("Bye!");
-//         finished = true;
-//     }
-// };
-
-// const newNumber = () => {
-//     let index = Math.floor(Math.random() * numbersList.length) + 1;
-//     let number = numbersList[index];
-//     numbersList.splice(index, 1);
-//     return number;
-// };
-
-// const checkNumber = (number, array) => {
-//     if (array.includes(number, 0)) {
-//         let index = array.indexOf(number);
-//         array[index] = "X";
-//     }
-// };
-
-// bingo();
+bingo(allNumbers, bingoCardBoard());
