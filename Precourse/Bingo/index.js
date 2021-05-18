@@ -45,13 +45,13 @@ const cardboardNumbers = () => {
 };
 
 //Creación del cartón
-const bingoCardBoard = () => {
-    auxArray = cardboardNumbers();
+const bingoCardBoard = (cardboardArray) => {
+    console.clear();
+    auxArray = cardboardArray;
     let r0 = auxArray.slice(0, 5);
     let r1 = auxArray.slice(5, 10);
     let r2 = auxArray.slice(10);
     row(r0, r1, r2);
-    return auxArray;
 };
 
 //En caso de que se confirme continuar al siguiente turno, se asigna el número de newNumber, se ejecuta la función checkNumber() y se muestra el carón actualizado
@@ -59,8 +59,8 @@ const nextTurn = (allNumbers, cardboardNumbers) => {
     if (window.confirm("Next turn?")) {
         let number = newNumber(allNumbers);
         alert(number);
-        // allNumbers = checkNumber(number, allNumbers);
-        // console.table(cardboardNumbers);
+        cardboardNumbers = checkNumber(number, cardboardNumbers);
+        bingoCardBoard(cardboardNumbers);
     } else {
         alert("Bye!");
         finished = true;
@@ -81,15 +81,20 @@ const checkNumber = (number, array) => {
         let index = array.indexOf(number);
         array[index] = "X";
         return array;
+    } else {
+        return array;
     }
 };
+
+let cardboard = cardboardNumbers();
 
 // // Programa principal
-const bingo = (numbers, cardboardNumbers) => {
+const bingo = (numbers, cardboard) => {
     const userName = prompt("Introduce your name", "Your Name");
+    bingoCardBoard(cardboard);
     while (numbers.length > 0 && !finished) {
-        nextTurn(numbers, cardboardNumbers);
+        nextTurn(numbers, cardboard);
     }
 };
 
-bingo(allNumbers, bingoCardBoard());
+bingo(allNumbers, cardboard);
