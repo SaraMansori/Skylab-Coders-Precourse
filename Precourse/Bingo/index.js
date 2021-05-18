@@ -84,6 +84,33 @@ const checkNumber = (number, array) => {
     }
 };
 
+const checkIfLine = () => {
+    console.log(cardboard);
+    if (
+        (cardboard[0] === "X" &&
+            cardboard[1] === "X" &&
+            cardboard[2] === "X" &&
+            cardboard[3] === "X" &&
+            cardboard[4] === "X") ||
+        (cardboard[0] === "X" &&
+            cardboard[5] === "X" &&
+            cardboard[10] === "X") ||
+        (cardboard[1] === "X" &&
+            cardboard[6] === "X" &&
+            cardboard[11] === "X") ||
+        (cardboard[2] === "X" &&
+            cardboard[7] === "X" &&
+            cardboard[12] === "X") ||
+        (cardboard[3] === "X" &&
+            cardboard[8] === "X" &&
+            cardboard[13] === "X") ||
+        (cardboard[4] === "X" && cardboard[9] === "X" && cardboard[14] === "X")
+    ) {
+        line = true;
+        alert(`LINE!`);
+    }
+};
+
 const pointSystem = () => {};
 
 let allNumbers = listOfNumbers();
@@ -98,11 +125,15 @@ const userName = prompt("Introduce your name", "Your Name");
 const bingo = (numbers) => {
     bingoCardBoard(cardboard);
     console.log(
-        `The maximum score is 180, for each round that passes, 2 points will be substracted from the score`
+        `The maximum score is 180. 
+For each round that passes, 2 points will be substracted from the score`
     );
     if (window.confirm("Do you want to play with this cardboard?")) {
         while (numbers.length > 0 && !finished) {
             nextTurn(numbers, cardboard);
+            if (!line) {
+                checkIfLine();
+            }
             rounds++;
             points -= 2;
             console.log(`Current points: ${points}`);
