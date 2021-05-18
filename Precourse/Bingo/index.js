@@ -84,6 +84,8 @@ const checkNumber = (number, array) => {
     }
 };
 
+const pointSystem = () => {};
+
 let allNumbers = listOfNumbers();
 let cardboard = "";
 cardboardNumbers();
