@@ -88,6 +88,8 @@ const pointSystem = () => {};
 
 let allNumbers = listOfNumbers();
 let cardboard = "";
+let points = 180;
+let rounds = 1;
 cardboardNumbers();
 const userName = prompt("Introduce your name", "Your Name");
 
@@ -97,6 +99,13 @@ const bingo = (numbers) => {
     if (window.confirm("Do you want to play with this cardboard?")) {
         while (numbers.length > 0 && !finished) {
             nextTurn(numbers, cardboard);
+            rounds++;
+            points -= 2;
+            console.log(points);
+        }
+        if (finished) {
+            rounds = 1;
+            points = 0;
         }
     } else {
         cardboardNumbers();
