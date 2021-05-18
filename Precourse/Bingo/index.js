@@ -24,7 +24,6 @@ function columns(c0, c1, c2, c3, c4) {
 
 // Función que genera el cartón a través de pasarle datos al constructor
 function row(r0, r1, r2) {
-    // console.clear();
     let row0 = new columns(r0[0], r0[1], r0[2], r0[3], r0[4]);
     let row1 = new columns(r1[0], r1[1], r1[2], r1[3], r1[4]);
     let row2 = new columns(r2[0], r2[1], r2[2], r2[3], r2[4]);
@@ -40,12 +39,12 @@ const cardboardNumbers = () => {
             auxArray.push(r);
         }
     }
-    return auxArray;
+    cardboard = auxArray;
 };
 
 //Creación del cartón
 const bingoCardBoard = (cardboardArray) => {
-    console.clear();
+    // console.clear();
     auxArray = cardboardArray;
     let r0 = auxArray.slice(0, 5);
     let r1 = auxArray.slice(5, 10);
@@ -85,8 +84,9 @@ const checkNumber = (number, array) => {
     }
 };
 
-let cardboard = cardboardNumbers();
 let allNumbers = listOfNumbers();
+let cardboard = "";
+cardboardNumbers();
 const userName = prompt("Introduce your name", "Your Name");
 
 // // Programa principal
@@ -97,6 +97,7 @@ const bingo = (numbers, cardboard) => {
             nextTurn(numbers, cardboard);
         }
     } else {
+        cardboardNumbers();
         bingo(allNumbers, cardboard);
     }
 };
