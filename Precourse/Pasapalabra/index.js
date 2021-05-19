@@ -154,7 +154,12 @@ const questions = [
         answer: "Saxofón",
         status: 0,
     },
-    { letter: "Y", question: "Con la Y. ", answer: "", status: 0 },
+    {
+        letter: "Y",
+        question: "Con la Y. Hembra del caballo",
+        answer: "Yegua",
+        status: 0,
+    },
     {
         letter: "Z",
         question:
@@ -163,3 +168,46 @@ const questions = [
         status: 0,
     },
 ];
+
+//Global Variables
+
+let points = 0;
+let rounds = 0;
+let errors = 0;
+let finished = false;
+
+let userName = prompt("What is your name?");
+
+const pasapalabraGame = () => {
+    console.log("hello");
+    for (let i = 0; i < questions.length && !finished; i++) {
+        if (!finished) {
+            let userAnswer = prompt(questions[i].question);
+            if (userAnswer !== null) {
+                userAnswer.toLowerCase();
+            }
+            switch (userAnswer) {
+                case null:
+                    console.log("Bye Bye");
+                    finished = true;
+                    break;
+                case "pasapalabra":
+                case "":
+                    console.log("Pasapalabra!");
+                    break;
+                default:
+                    if (userAnswer !== questions[i].answer.toLowerCase()) {
+                        console.log("Incorrect!");
+                    } else if (
+                        userAnswer !== questions[i].answer.toLowerCase()
+                    ) {
+                        console.log("Correct!");
+                    }
+            }
+        } else {
+            console.log("Game Finished");
+        }
+    }
+};
+
+pasapalabraGame();
