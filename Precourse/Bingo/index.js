@@ -153,7 +153,7 @@ listOfNumbers();
 
 const userName = prompt("Introduce your name", "Your Name");
 
-// // Programa principal
+// Programa principal
 const bingoGame = () => {
     bingoCardBoard(cardboard);
     console.log(
@@ -193,4 +193,3 @@ For each round that passes, 2 points will be substracted from the score`
 };
 
 bingoGame();
-console.log(allNumbers);
