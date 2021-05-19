@@ -1,7 +1,22 @@
 let finished = false;
 
-//Función que genera los números del juego del 1 al 90
+//Creación de objeto con el ranking
+const rankingPoints = [
+    { user: "Skylab Paris", points: [8] },
+    { user: "Skylab Barcelona", points: [20] },
+    { user: "Skylab Madrid", points: [18] },
+];
 
+//Ordena los usuarios del ranking de mayor a menor puntuación y lo muestra por consola
+rankingPoints.sort((a, b) => {
+    return b.points - a.points;
+});
+console.log(`Ranking:
+1. ${rankingPoints[0].user}: ${rankingPoints[0].points} points
+2. ${rankingPoints[1].user}: ${rankingPoints[1].points} points
+1. ${rankingPoints[2].user}: ${rankingPoints[2].points} points`);
+
+//Función que genera los números del juego del 1 al 90
 function listOfNumbers() {
     let randomNumbers = [];
     while (randomNumbers.length < 90) {
@@ -10,7 +25,7 @@ function listOfNumbers() {
             randomNumbers.push(n);
         }
     }
-    return randomNumbers;
+    allNumbers = randomNumbers;
 }
 
 // Constructor de columnas
@@ -52,6 +67,7 @@ const bingoCardBoard = (cardboardArray) => {
     row(r0, r1, r2);
 };
 
+//Variable que almacena los números que ya han sido escogidos
 let numbersShown = [];
 
 //En caso de que se confirme continuar al siguiente turno, se asigna el número de newNumber, se ejecuta la función checkNumber() y se muestra el carón actualizado
@@ -87,6 +103,7 @@ const checkNumber = (number, array) => {
     }
 };
 
+//Comprueba que se haya hecho línea horizontal y vertical
 const checkIfLine = () => {
     if (
         (cardboard[0] === "X" &&
@@ -113,36 +130,39 @@ const checkIfLine = () => {
     }
 };
 
+//Comprueba que se haya hecho bingo
 const checkIfBingo = () => {
     if (cardboard.every((val) => val === "X")) {
         bingo = true;
         alert(`BINGO!`);
         finished = true;
-        console.log(`Thank you for playing! Your puntuation is ${points}`);
+        console.log(`Thank you for playing ${userName}! Your puntuation is ${points}.
+You completed the game in ${rounds} rounds.`);
     }
 };
 
-const pointSystem = () => {};
-
-let allNumbers = listOfNumbers();
+//Declaración de variables globales
+let allNumbers = "";
 let cardboard = "";
 let points = 180;
 let rounds = 1;
 line = false;
 bingo = false;
 cardboardNumbers();
+listOfNumbers();
+
 const userName = prompt("Introduce your name", "Your Name");
 
 // // Programa principal
-const bingoGame = (numbers) => {
+const bingoGame = () => {
     bingoCardBoard(cardboard);
     console.log(
         `The maximum score is 180. 
 For each round that passes, 2 points will be substracted from the score`
     );
     if (window.confirm("Do you want to play with this cardboard?")) {
-        while (numbers.length > 0 && !finished && !bingo) {
-            nextTurn(numbers, cardboard);
+        while (allNumbers.length > 0 && !finished && !bingo) {
+            nextTurn(allNumbers, cardboard);
             if (!line) {
                 checkIfLine();
             }
@@ -154,11 +174,23 @@ For each round that passes, 2 points will be substracted from the score`
         if (finished || bingo) {
             rounds = 1;
             points = 0;
+            cardboardNumbers();
+            if (window.confirm("Want to play again?")) {
+                finished = false;
+                bingo = false;
+                line = false;
+                points = 180;
+                listOfNumbers();
+                bingoGame();
+            } else {
+                alert("Bye!");
+            }
         }
     } else {
         cardboardNumbers();
-        bingoGame(allNumbers, cardboard);
+        bingoGame();
     }
 };
 
-bingoGame(allNumbers);
+bingoGame();
+console.log(allNumbers);
