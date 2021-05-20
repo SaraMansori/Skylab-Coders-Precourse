@@ -20,6 +20,20 @@ body {
     position: relative;
 }
 
+.screen {
+    font-family: "Montserrat", sans-serif;
+    color: white;
+    font-size: 55px;
+    font-weight: bold;
+    height: 137px;
+    width: 319px;
+    margin: auto;
+    top: 0;
+    margin-top: 15px;
+    text-align: end;
+    padding-top: 4.5rem;
+}
+
 .inside-rectangle {
     background-color: #5d657c;
     height: 495px;
@@ -46,6 +60,7 @@ body {
     font-size: 36px;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .buttons.number {
@@ -66,8 +81,8 @@ body {
 }
 
 img {
-    max-width: 70%;
-    max-height: 70%;
+    max-width: 100%;
+    max-height: 100%;
     justify-content: center;
     align-items: center;
 }
