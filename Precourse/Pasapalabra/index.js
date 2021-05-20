@@ -2,7 +2,7 @@
 let points = 0;
 let rounds = 0;
 let errors = 0;
-let finishedAllGame = true;
+let exitedGame = false;
 let finished = false;
 let thisGameQuestions = [];
 let unansweredQuestions = [];
@@ -35,8 +35,6 @@ const alphabet = [
     "Z",
 ];
 
-let userName = prompt("Cuál es tu nombre?");
-
 // Función que genera una pregunta aleatoria de cada letra
 const generateRandomQuestion = (letter) => {
     let letterArray = questions.filter((question) => {
@@ -53,28 +51,35 @@ const generateThisGameQuestions = () => {
     }
 };
 
-generateThisGameQuestions();
-
 //Pregunta al usuario si quiere jugar de nuevo
 const wantToReplay = () => {
     if (window.confirm("Quieres volver a jugar?")) {
-        pasapalabraGame();
+        points = 0;
+        errors = 0;
+        rounds = 0;
+        finished = false;
+        exitedGame = false;
+        thisGameQuestions = [];
+        unansweredQuestions = [];
+        generateThisGameQuestions();
+        pasapalabraGame(thisGameQuestions);
     }
 };
 
 //Normaliza la palabra introducida y la convierte en minúsculas y le elimina acentos y caracteres extraños
 const normalize = (word) => {
     let normalizedWord = word
-        .toLowerCase()
         .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "");
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase();
     return normalizedWord;
 };
 
-const nextTurn = () => {
-    for (let i = 0; i < unansweredQuestions.length; i++) {
-        let userAnswer = prompt(unansweredQuestions[i].question);
-        let correctAnswer = normalize(unansweredQuestions[i].answer);
+//Ejecuta el juego con el array introducido (así se puede utilizar para el juego principal y las rondas consecutivas con las preguntas sin contestar)
+const pasapalabraGame = (array) => {
+    for (let i = 0; i < array.length && !finished; i++) {
+        let userAnswer = prompt(array[i].question);
+        let correctAnswer = normalize(array[i].answer);
         if (userAnswer !== null) {
             userAnswer = normalize(userAnswer);
         }
@@ -82,88 +87,40 @@ const nextTurn = () => {
             case null:
             case "END":
                 finished = true;
-                finishedAllGame = false;
+                exitedGame = true;
                 break;
             case "pasapalabra":
             case "":
                 console.log("Pasapalabra!");
-                rounds++;
                 break;
             default:
                 if (userAnswer !== correctAnswer) {
                     console.log(
-                        `Incorrecto! La respuesta correcta es ${unansweredQuestions[i].answer}`
+                        `Incorrecto! La respuesta correcta es ${array[i].answer}`
                     );
-                    unansweredQuestions[i].status = 2;
+                    array[i].status = 2;
                     errors++;
-                    rounds++;
                 } else if (userAnswer === correctAnswer) {
                     console.log("Correcto!");
-                    unansweredQuestions[i].status = 1;
+                    array[i].status = 1;
                     points++;
-                    rounds++;
                 }
         }
     }
-    unansweredQuestions = unansweredQuestions.filter(
-        (question) => question.status === 0
-    );
-};
-
-const pasapalabraGame = () => {
-    for (let i = 0; i < thisGameQuestions.length && !finished; i++) {
-        let userAnswer = prompt(thisGameQuestions[i].question);
-        let correctAnswer = normalize(thisGameQuestions[i].answer);
-        if (userAnswer !== null) {
-            userAnswer = normalize(userAnswer);
-        }
-        switch (userAnswer) {
-            case null:
-            case "END":
-                finished = true;
-                finishedAllGame = false;
-                break;
-            case "pasapalabra":
-            case "":
-                console.log("Pasapalabra!");
-                rounds++;
-                break;
-            default:
-                if (userAnswer !== correctAnswer) {
-                    console.log(
-                        `Incorrecto! La respuesta correcta es ${thisGameQuestions[i].answer}`
-                    );
-                    thisGameQuestions[i].status = 2;
-                    errors++;
-                    rounds++;
-                } else if (userAnswer === correctAnswer) {
-                    console.log("Correcto!");
-                    thisGameQuestions[i].status = 1;
-                    points++;
-                    rounds++;
-                }
-        }
-    }
-    if (finishedAllGame) {
-        do {
+    if (exitedGame) {
+        console.log(`Has acertado ${points} preguntas`);
+        wantToReplay();
+        alert("Hasta pronto!");
+    } else {
+        unansweredQuestions = array.filter((question) => question.status === 0);
+        while (unansweredQuestions.length > 0) {
             alert("Empezamos de nuevo el rosco!");
-            unansweredQuestions = thisGameQuestions.filter(
-                (question) => question.status === 0
-            );
-            nextTurn();
-        } while (unansweredQuestions.length > 0);
+            pasapalabraGame(unansweredQuestions);
+        }
         console.log(
             `Juego terminado. Has acertado ${points} de las preguntas y has cometido ${errors} errores.`
         );
-        questionsArray = [];
-        points = 0;
-        rounds = 0;
-        alert("Hasta pronto!");
-    } else {
-        console.log(`Has acertado ${points} preguntas`);
-        questionsArray = [];
-        points = 0;
-        rounds = 0;
+        wantToReplay();
         alert("Hasta pronto!");
     }
 };
@@ -171,10 +128,12 @@ const pasapalabraGame = () => {
 //Función que ejecuta el comienzo del juego
 const startGame = () => {
     if (window.confirm("Preparado para empezar la partida?")) {
-        pasapalabraGame();
+        pasapalabraGame(thisGameQuestions);
     } else {
         alert("Hasta pronto!");
     }
 };
 
+let userName = prompt("Cuál es tu nombre?");
+generateThisGameQuestions();
 startGame();
