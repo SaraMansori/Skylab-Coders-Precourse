@@ -16,37 +16,40 @@
     <body>
         <div class="main-body">
             <div class="screen">
-                <span class="screen-results">34509</span>
+                <div
+                    id="screen-results"
+                    class="screen-results"
+                    maxlength="8"
+                ></div>
             </div>
             <div class="inside-rectangle">
-                <div class="buttons symbol green bold">AC</div>
-                <div class="buttons symbol green">
-                    <img
-                        src="./pictures/plusMinus.svg"
-                        alt="positive negative"
-                    />
+                <div class="buttons">
+                    <div class="button symbol green bold">AC</div>
+                    <div class="button symbol green">+/-</div>
+                    <div class="button symbol green">%</div>
+                    <div class="button symbol orange">/</div>
+                    <div class="button number">1</div>
+                    <div class="button number">2</div>
+                    <div class="button number">3</div>
+                    <div class="button symbol orange">*</div>
+                    <div class="button number">4</div>
+                    <div class="button number">5</div>
+                    <div class="button number">6</div>
+                    <div class="button symbol orange">-</div>
+                    <div class="button number">7</div>
+                    <div class="button number">8</div>
+                    <div class="button number">9</div>
+                    <div class="button symbol orange">+</div>
+                    <div class="button back">
+                        <span class="invisible">back</span>
+                        <img src="./pictures/arrow_back.svg" alt="back" />
+                    </div>
+                    <div class="button number">0</div>
+                    <div class="button number">.</div>
+                    <div id="equal" class="button symbol orange">=</div>
                 </div>
-                <div class="buttons symbol green">%</div>
-                <div class="buttons symbol orange">/</div>
-                <div class="buttons number">1</div>
-                <div class="buttons number">2</div>
-                <div class="buttons number">3</div>
-                <div class="buttons symbol orange">x</div>
-                <div class="buttons number">4</div>
-                <div class="buttons number">5</div>
-                <div class="buttons number">6</div>
-                <div class="buttons symbol orange">-</div>
-                <div class="buttons number">7</div>
-                <div class="buttons number">8</div>
-                <div class="buttons number">9</div>
-                <div class="buttons symbol orange">+</div>
-                <div class="buttons reload">
-                    <img src="./pictures/update-arrow.svg" alt="update arrow" />
-                </div>
-                <div class="buttons number">0</div>
-                <div class="buttons number">.</div>
-                <div class="buttons symbol orange">=</div>
             </div>
         </div>
+        <script src="./index.js"></script>
     </body>
 </html>
