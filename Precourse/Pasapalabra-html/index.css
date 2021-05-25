@@ -7,7 +7,7 @@
     box-sizing: border-box;
 }
 
-body {
+.game {
     background: #36d1dc; /* fallback for old browsers */
     background: -webkit-linear-gradient(
         to right,
@@ -54,6 +54,14 @@ body {
     color: white;
 }
 
+.button--state-correct {
+    background-color: rgb(25, 211, 96);
+}
+
+.button--state-incorrect {
+    background-color: rgb(182, 31, 44);
+}
+
 .game-name {
     position: absolute;
 }
@@ -88,9 +96,49 @@ body {
     color: rgb(255, 255, 255);
 }
 
+.send-answer:hover {
+    background-color: rgb(0, 138, 53);
+    transition: 0.5s;
+}
+
 .send-pasapalabra {
     background-color: rgb(48, 101, 180);
     color: white;
+}
+
+.send-pasapalabra:hover {
+    background-color: rgb(29, 58, 102);
+    transition: 0.5s;
+}
+
+.time-and-points {
+    width: 5em;
+    height: 8em;
+    align-self: flex-end;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+
+.time-and-points > * {
+    width: 3em;
+    height: 3em;
+    background-color: rgb(48, 101, 180);
+    border: solid rgb(255, 255, 255) 2px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.timer {
+    border-radius: 50%;
+}
+
+.points {
+    margin-top: 0.5em;
+    border-radius: 7px;
 }
 
 .circle {
