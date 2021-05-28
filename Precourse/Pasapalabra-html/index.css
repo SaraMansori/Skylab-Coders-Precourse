@@ -33,12 +33,6 @@
     align-items: center;
 }
 
-.round-container__game-name {
-    font-size: 2em;
-    font-weight: bolder;
-    color: white;
-}
-
 .main-section {
     display: flex;
     justify-content: center;
@@ -52,6 +46,42 @@
     position: relative;
     justify-content: center;
     align-items: center;
+}
+
+.round-container__interior {
+    font-weight: bolder;
+    color: white;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.interior__game-name {
+    font-size: 2em;
+}
+
+.interior__pop-section,
+.interior__pop-section > * {
+    margin-top: 0.5em;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.correct-answer__answer--value {
+    font-size: 1.5em;
+}
+
+.correct-answer__result--correct {
+    color: rgb(25, 211, 96);
+}
+
+.correct-answer__result--incorrect {
+    color: rgb(182, 31, 44);
 }
 
 .button {
@@ -68,10 +98,6 @@
 
 .button--state-incorrect {
     background-color: rgb(182, 31, 44);
-}
-
-.round-container__game-name {
-    position: absolute;
 }
 
 .questions-and-answers,

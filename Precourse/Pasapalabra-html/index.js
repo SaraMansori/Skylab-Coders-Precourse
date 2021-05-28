@@ -121,17 +121,20 @@ let pasapalabra = (array) => {
 
 let checkAnswer = (correctAnswer, array) => {
     let userAnswer = document.getElementById("user-answer");
+    let btn = document.getElementById(array[currentQuestion].letter);
     if (normalize(userAnswer.value) !== correctAnswer) {
-        let btn = document.querySelector(#)
+        btn.classList.add("button--state-incorrect");
         console.log(`Incorrecto! La respuesta correcta es ${correctAnswer}`);
         thisGameQuestions[currentQuestion].status = 2;
         errors++;
     } else if (normalize(userAnswer.value) === correctAnswer) {
+        btn.classList.add("button--state-correct");
         console.log("Correcto!");
         thisGameQuestions[currentQuestion].status = 1;
         points++;
     }
     userAnswer.value = "";
+    document.getElementById("points-btn").innerHTML = points;
     if (currentQuestion < array.length - 1) {
         currentQuestion++;
         pasapalabraGame(array);
@@ -162,4 +165,3 @@ const pasapalabraGame = (array) => {
         pasapalabra(array);
     };
 };
-
