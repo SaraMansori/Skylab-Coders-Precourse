@@ -9,7 +9,7 @@ const questions = [
     {
         letter: "A",
         question:
-            "Con la A. Instrumento musical de viento, formado por un fuelle cuyos dos extremos se cierran por sendas cajas, especie de estuches, en los que juegan cierto número de llaves o teclas que permiten seleccionar los sonidos.",
+            "Con la A. Instrumento musical de viento, formado por un fuelle cuyos dos extremos se cierran por sendas cajas, especie de estuches, en los que juegan cierto número de llaves o teclas que permiten seleccionar los sonidos",
         answer: "Acordeón",
         status: 0,
     },
@@ -36,7 +36,7 @@ const questions = [
     {
         letter: "B",
         question:
-            "Con la B. Calzado, generalmente de cuero, que resguarda el pie, el tobillo y, a veces, una parte de la pierna.",
+            "Con la B. Calzado, generalmente de cuero, que resguarda el pie, el tobillo y, a veces, una parte de la pierna",
         answer: "Bota",
         status: 0,
     },
@@ -49,14 +49,14 @@ const questions = [
     {
         letter: "C",
         question:
-            "Con la C. Sólido limitado por un plano que corta a una superficie cónica cerrada.",
+            "Con la C. Sólido limitado por un plano que corta a una superficie cónica cerrada",
         answer: "Cono",
         status: 0,
     },
     {
         letter: "C",
         question:
-            "Con la C. Parte superior del cuerpo humano y superior o anterior de muchos animales, en la que están situados el cerebro y los principales órganos sensoriales.",
+            "Con la C. Parte superior del cuerpo humano y superior o anterior de muchos animales, en la que están situados el cerebro y los principales órganos sensoriales",
         answer: "Cabeza",
         status: 0,
     },
@@ -70,14 +70,14 @@ const questions = [
     {
         letter: "D",
         question:
-            "Con la D. Reptil fósil, propio del Mesozoico, generalmente de gran tamaño, cabeza pequeña, cuello largo, cola robusta y larga, y extremidades posteriores más largas que las anteriores.",
+            "Con la D. Reptil fósil, propio del Mesozoico, generalmente de gran tamaño, cabeza pequeña, cuello largo, cola robusta y larga, y extremidades posteriores más largas que las anteriores",
         answer: "Dinosaurio",
         status: 0,
     },
     {
         letter: "D",
         question:
-            "Con la D. Piedra preciosa constituida por carbono cristalizado en el sistema cúbico, que se utiliza en joyería por su brillo y transparencia y en la industria por su elevada dureza.",
+            "Con la D. Piedra preciosa constituida por carbono cristalizado en el sistema cúbico, que se utiliza en joyería por su brillo y transparencia y en la industria por su elevada dureza",
         answer: "Diamante",
         status: 0,
     },
@@ -90,14 +90,14 @@ const questions = [
     {
         letter: "E",
         question:
-            "Con la E. Cada uno de los cuerpos celestes que brillan en la noche, excepto la Luna.",
+            "Con la E. Cada uno de los cuerpos celestes que brillan en la noche, excepto la Luna",
         answer: "Estrella",
         status: 0,
     },
     {
         letter: "E",
         question:
-            "Con la E. Ciencia que estudia los seres vivos como habitantes de un medio, y las relaciones que mantienen entre sí y con el propio medio.",
+            "Con la E. Ciencia que estudia los seres vivos como habitantes de un medio, y las relaciones que mantienen entre sí y con el propio medio",
         answer: "Ecología",
         status: 0,
     },
@@ -136,7 +136,7 @@ const questions = [
     {
         letter: "G",
         question:
-            "Con la G. Masa de hielo acumulada en las zonas de las cordilleras por encima del límite de las nieves perpetuas y cuya parte inferior se desliza muy lentamente, como si fuese un río de hielo.",
+            "Con la G. Masa de hielo acumulada en las zonas de las cordilleras por encima del límite de las nieves perpetuas y cuya parte inferior se desliza muy lentamente, como si fuese un río de hielo",
         answer: "Glaciar",
         status: 0,
     },
@@ -149,7 +149,7 @@ const questions = [
     {
         letter: "H",
         question:
-            "Con la H. Persona o animal que tiene en común con otra el mismo padre y la misma madre, o solo uno de ellos.",
+            "Con la H. Persona o animal que tiene en común con otra el mismo padre y la misma madre, o solo uno de ellos",
         answer: "Hermano",
         status: 0,
     },
@@ -168,14 +168,14 @@ const questions = [
     },
     {
         letter: "I",
-        question: "Con la I. Que tiene importancia.",
+        question: "Con la I. Que tiene importancia",
         answer: "Importante",
         status: 0,
     },
     {
         letter: "I",
         question:
-            "Con la I. Vivienda de forma semiesférica construida con bloques de hielo, en que, durante el invierno, habitan los esquimales y otros pueblos de análogas características.",
+            "Con la I. Vivienda de forma semiesférica construida con bloques de hielo, en que, durante el invierno, habitan los esquimales y otros pueblos de análogas características",
         answer: "Iglú",
         status: 0,
     },
@@ -194,7 +194,7 @@ const questions = [
     },
     {
         letter: "J",
-        question: "Con la J. Pedazo desgarrado del vestido o de otra ropa.",
+        question: "Con la J. Pedazo desgarrado del vestido o de otra ropa",
         answer: "Jirón",
         status: 0,
     },
@@ -214,7 +214,7 @@ const questions = [
     {
         letter: "K",
         question:
-            "Con la K. Cosmético para ennegrecer los bordes de los párpados, las pestañas o las cejas.",
+            "Con la K. Cosmético para ennegrecer los bordes de los párpados, las pestañas o las cejas",
         answer: "Kohl",
         status: 0,
     },
@@ -227,14 +227,14 @@ const questions = [
     {
         letter: "L",
         question:
-            "Con la L. Lugar formado artificiosamente por calles y encrucijadas, para confundir a quien se adentre en él, de modo que no pueda acertar con la salida.",
+            "Con la L. Lugar formado artificiosamente por calles y encrucijadas, para confundir a quien se adentre en él, de modo que no pueda acertar con la salida",
         answer: "Laberinto",
         status: 0,
     },
     {
         letter: "L",
         question:
-            "Con la L. Mamífero carnicero, semejante a un perro grande, pelaje de color gris oscuro, cabeza aguzada, orejas tiesas y cola larga con mucho pelo, salvaje, gregario y que ataca al ganado.",
+            "Con la L. Mamífero carnicero, semejante a un perro grande, pelaje de color gris oscuro, cabeza aguzada, orejas tiesas y cola larga con mucho pelo, salvaje, gregario y que ataca al ganado",
         answer: "Lobo",
         status: 0,
     },
@@ -254,7 +254,7 @@ const questions = [
     {
         letter: "M",
         question:
-            "Con la M. Pastel en forma de prisma rectangular, que contiene merengue entre dos capas de hojaldre espolvoreado con azúcar.",
+            "Con la M. Pastel en forma de prisma rectangular, que contiene merengue entre dos capas de hojaldre espolvoreado con azúcar",
         answer: "Milhojas",
         status: 0,
     },
@@ -267,14 +267,14 @@ const questions = [
     {
         letter: "N",
         question:
-            "Con la N. En el mundo cristiano, festividad anual en la que se conmemora el nacimiento de Jesucristo.",
+            "Con la N. En el mundo cristiano, festividad anual en la que se conmemora el nacimiento de Jesucristo",
         answer: "Navidad",
         status: 0,
     },
     {
         letter: "N",
         question:
-            "Con la N. Premio otorgado anualmente por la fundación sueca Alfred Nobel como reconocimiento de méritos excepcionales en diversas actividades.",
+            "Con la N. Premio otorgado anualmente por la fundación sueca Alfred Nobel como reconocimiento de méritos excepcionales en diversas actividades",
         answer: "Nobel",
         status: 0,
     },
@@ -286,14 +286,14 @@ const questions = [
     },
     {
         letter: "O",
-        question: "Con la O.  Cumplir la voluntad de quien manda.",
+        question: "Con la O.  Cumplir la voluntad de quien manda",
         answer: "Obedecer",
         status: 0,
     },
     {
         letter: "O",
         question:
-            "Con la O. Onda de gran amplitud que se forma en la superficie de las aguas.",
+            "Con la O. Onda de gran amplitud que se forma en la superficie de las aguas",
         answer: "Ola",
         status: 0,
     },
@@ -326,7 +326,7 @@ const questions = [
     {
         letter: "Q",
         question:
-            "Con la Q. Vehículo todoterreno de cuatro ruedas similar a una motocicleta.",
+            "Con la Q. Vehículo todoterreno de cuatro ruedas similar a una motocicleta",
         answer: "Quad",
         status: 0,
     },
@@ -366,13 +366,13 @@ const questions = [
     {
         letter: "S",
         question:
-            "Con la S. Llanura muy extensa, con escasa vegetación arbórea y abundantes plantas herbáceas, propia de zonas tropicales y subtropicales.",
+            "Con la S. Llanura muy extensa, con escasa vegetación arbórea y abundantes plantas herbáceas, propia de zonas tropicales y subtropicales",
         answer: "Sabana",
         status: 0,
     },
     {
         letter: "S",
-        question: "Con la S. Natural de Siberia, región de Asia.",
+        question: "Con la S. Natural de Siberia, región de Asia",
         answer: "Siberiano",
         status: 0,
     },
@@ -439,14 +439,14 @@ const questions = [
     {
         letter: "X",
         question:
-            "Contiene la X. Instrumento musical de viento, de metal, con boquilla de madera, caña y varias llaves, que es de invención moderna y muy usado, principalmente en las bandas militares y orquestas de jazz.",
+            "Contiene la X. Instrumento musical de viento, de metal, con boquilla de madera, caña y varias llaves, que es de invención moderna y muy usado, principalmente en las bandas militares y orquestas de jazz",
         answer: "Saxofón",
         status: 0,
     },
     {
         letter: "X",
         question:
-            "Con la X.  Instrumento musical de percusión formado por láminas generalmente de madera, ordenadas horizontalmente según su tamaño y sonido, que se hacen sonar golpeándolas con dos baquetas.",
+            "Con la X.  Instrumento musical de percusión formado por láminas generalmente de madera, ordenadas horizontalmente según su tamaño y sonido, que se hacen sonar golpeándolas con dos baquetas",
         status: 0,
     },
     {

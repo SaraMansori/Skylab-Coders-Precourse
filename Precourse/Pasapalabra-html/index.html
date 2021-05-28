@@ -12,55 +12,75 @@
 <body>
 	<div class="game">
 		<section class="main-section">
-			<section class="time-and-points">
-				<div class="timer">60</div>
-				<div class="points">100</div>
+			<section class="puntuation">
+				<div class="puntuation__timer" id="seconds-left">95</div>
+				<div class="puntuation__points" id="temp-btn">0</div>
 			</section>
 			<div class="round-container">
-				<h1 class="game-name">Pasapalabra</h1>
-				<ul class="circle">
-					<li class="button button--state-normal">A</li>
-					<li class="button button--state-normal">B</li>
-					<li class="button button--state-normal">C</li>
-					<li class="button button--state-normal">D</li>
-					<li class="button button--state-normal">E</li>
-					<li class="button button--state-normal">F</li>
-					<li class="button button--state-normal">G</li>
-					<li class="button button--state-normal">H</li>
-					<li class="button button--state-normal">I</li>
-					<li class="button button--state-normal">J</li>
-					<li class="button button--state-normal">L</li>
-					<li class="button button--state-normal">M</li>
-					<li class="button button--state-normal">N</li>
-					<li class="button button--state-normal">Ñ</li>
-					<li class="button button--state-normal">O</li>
-					<li class="button button--state-normal">P</li>
-					<li class="button button--state-normal">Q</li>
-					<li class="button button--state-normal">R</li>
-					<li class="button button--state-normal">S</li>
-					<li class="button button--state-normal">T</li>
-					<li class="button button--state-normal">U</li>
-					<li class="button button--state-normal">V</li>
-					<li class="button button--state-normal">X</li>
-					<li class="button button--state-normal">Y</li>
-					<li class="button button--state-normal">Z</li>
+				<h1 class="round-container__game-name">Pasapalabra</h1>
+				<ul class="round-container__circle">
+					<li class="button button--state-normal" id="btn-a">A</li>
+					<li class="button button--state-normal" id="btn-b">B</li>
+					<li class="button button--state-normal" id="btn-c">C</li>
+					<li class="button button--state-normal" id="btn-d">D</li>
+					<li class="button button--state-normal" id="btn-e">E</li>
+					<li class="button button--state-normal" id="btn-f">F</li>
+					<li class="button button--state-normal" id="btn-g">G</li>
+					<li class="button button--state-normal" id="btn-h">H</li>
+					<li class="button button--state-normal" id="btn-i">I</li>
+					<li class="button button--state-normal" id="btn-j">J</li>
+					<li class="button button--state-normal" id="btn-k">K</li>
+					<li class="button button--state-normal" id="btn-l">L</li>
+					<li class="button button--state-normal" id="btn-m">M</li>
+					<li class="button button--state-normal" id="btn-n">N</li>
+					<li class="button button--state-normal" id="btn-ñ">Ñ</li>
+					<li class="button button--state-normal" id="btn-o">O</li>
+					<li class="button button--state-normal" id="btn-p">P</li>
+					<li class="button button--state-normal" id="btn-q">Q</li>
+					<li class="button button--state-normal" id="btn-r">R</li>
+					<li class="button button--state-normal" id="btn-s">S</li>
+					<li class="button button--state-normal" id="btn-t">T</li>
+					<li class="button button--state-normal" id="btn-u">U</li>
+					<li class="button button--state-normal" id="btn-v">V</li>
+					<li class="button button--state-normal" id="btn-w">W</li>
+					<li class="button button--state-normal" id="btn-x">X</li>
+					<li class="button button--state-normal" id="btn-y">Y</li>
+					<li class="button button--state-normal" id="btn-z">Z</li>
 				</ul>
 			</div>
+			<section class="wrapper">
+				<div class="instructions" id="instructions">
+					<div class="instructions__welcome-title"><h2>Bienvenido al juego de Pasapalabra!</h2></div>
+					<br>
+					<p class="instructions__description">Tienes 100 segundos para contestar todas las preguntas del rosco.</p>
+					<br>
+					<p class="instructions__description">Si hay alguna que quieres dejar para la siguiente ronda no tienes más que pulsar "Pasapalabra".</p>
+					<br>
+					<p class="instructions__description">Introduce tu nombre y que comience la partida!</p>
+					<br>
+					<input type="text" class="input-field" id="name" placeholder="Introduce tu nombre">
+					<br>
+					<div class="send-buttons">
+						<a class="send-buttons__blue" id="play-btn" href="#">Jugar ya!</a>
+					</div>
+				</div>
+			</section>
+			</section class="wrapper">
+				<div class="questions-and-answers" id="questions-area" style="display:none">
+					<div class="questions-and-answers__letter"><h2 class="letter-text" id="letter-text">Con la A:</h2></div>
+					<br>
+					<p class="questions-and-answers__question" id="question"></p>
+					<br>
+					<input type="text" class="input-field" id="user-answer" placeholder="Tu respuesta aquí">
+					<br>
+					<div class="send-buttons">
+						<a class="send-buttons__green" id="answer-btn" href="#">Responder</a>
+						<a class="send-buttons__blue" id="pasapalabra-btn" href="#">Pasapalabra</a>
+					</div>
+				</div>
 		</section>
-		<div class="questions-and-answers">
-			<div class="letter"><h2>Con la A:</h2></div>
-			<br>
-			<div class="question">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Est assumenda natus, repellat rerum id nisi debitis dignissimos obcaecati harum voluptatem consequatur doloremque sunt deleniti magni amet ratione? Dolorum, dicta impedit?</div>
-			<br>
-			<input type="text" class="answer" placeholder="Tu respuesta aquí">
-			<br>
-			<div class="send-buttons">
-				<a class="send-answer" href="#">Responder</a>
-				<a class="send-pasapalabra" href="#	">Pasapalabra</a>
-			</div>
 	</div>
-	</section>
-	</div>
+<script src="./questions.js"></script>
 <script src="./index.js"></script>
 </body>
 </html>
