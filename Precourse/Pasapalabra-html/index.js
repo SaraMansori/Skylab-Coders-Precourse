@@ -8,11 +8,10 @@ const timeLeftDisplay = document.querySelector("#seconds-left");
 let timeLeft = 95;
 
 function countdown() {
-    if (timeLeft <= 0) {
-        clearInterval((timeLeft = 0));
-    }
-
     window.setInterval(function () {
+        if (timeLeft <= 0) {
+            clearInterval((timeLeft = 0));
+        }
         timeLeftDisplay.innerHTML = timeLeft;
         timeLeft -= 1;
     }, 1000);
@@ -23,13 +22,13 @@ function play() {
     countdown();
     playerName = userName.value;
     userName.value = "";
-    document.getElementById("instructions").style.display = "none";
-    document.getElementById("questions-area").style.display = "";
     pasapalabraGame(thisGameQuestions);
 }
 
 let playButton = document.getElementById("play-btn");
 playButton.onclick = function () {
+    document.getElementById("instructions").classList.toggle("hidden");
+    document.getElementById("questions-area").classList.toggle("hidden");
     play();
 };
 
@@ -96,6 +95,7 @@ generateThisGameQuestions();
 // };
 
 //Normalizes the introduced word
+
 const normalize = (word) => {
     let normalizedWord = word
         .normalize("NFD")
@@ -106,6 +106,13 @@ const normalize = (word) => {
 
 let pasapalabra = (array) => {
     if (currentQuestion < array.length - 1) {
+        document
+            .querySelector(".interior__game-name")
+            .classList.remove("hidden");
+        document
+            .querySelector(".interior__pop-section")
+            .classList.add("hidden");
+
         currentQuestion++;
         pasapalabraGame(array);
     } else {
@@ -120,16 +127,38 @@ let pasapalabra = (array) => {
 };
 
 let checkAnswer = (correctAnswer, array) => {
+    document.querySelector(".interior__game-name").classList.add("hidden");
     let userAnswer = document.getElementById("user-answer");
     let btn = document.getElementById(array[currentQuestion].letter);
+    let correctAnswerText = document.querySelector(
+        ".correct-answer__answer--text"
+    );
+    let correctAnswerValue = document.querySelector(
+        ".correct-answer__answer--value"
+    );
+    let answerEvaluation = document.querySelector("#answer-evaluation");
     if (normalize(userAnswer.value) !== correctAnswer) {
         btn.classList.add("button--state-incorrect");
-        console.log(`Incorrecto! La respuesta correcta es ${correctAnswer}`);
+        document
+            .querySelector(".interior__pop-section")
+            .classList.remove("hidden");
+
+        answerEvaluation.innerHTML = "Incorrecto!";
+        correctAnswerText.innerHTML = "La respuesta correcta es:";
+        correctAnswerValue.innerHTML = array[currentQuestion].answer;
         thisGameQuestions[currentQuestion].status = 2;
+        correctAnswerValue.classList.remove("hidden");
+        correctAnswerText.classList.remove("hidden");
         errors++;
     } else if (normalize(userAnswer.value) === correctAnswer) {
         btn.classList.add("button--state-correct");
-        console.log("Correcto!");
+        document
+            .querySelector(".interior__pop-section")
+            .classList.remove("hidden");
+
+        answerEvaluation.innerHTML = "Correcto!";
+        correctAnswerText.classList.add("hidden");
+        correctAnswerValue.classList.add("hidden");
         thisGameQuestions[currentQuestion].status = 1;
         points++;
     }

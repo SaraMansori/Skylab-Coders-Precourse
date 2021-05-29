@@ -7,9 +7,9 @@
     box-sizing: border-box;
 }
 
-[status="hidden"] {
+/* [status="hidden"] {
     display: none;
-}
+} */
 
 .wrapper {
     align-self: center;
@@ -64,7 +64,7 @@
 
 .interior__pop-section,
 .interior__pop-section > * {
-    margin-top: 0.5em;
+    line-height: 1.5;
     text-align: center;
 }
 
@@ -73,15 +73,7 @@
 }
 
 .correct-answer__answer--value {
-    font-size: 1.5em;
-}
-
-.correct-answer__result--correct {
-    color: rgb(25, 211, 96);
-}
-
-.correct-answer__result--incorrect {
-    color: rgb(182, 31, 44);
+    font-size: inherit;
 }
 
 .button {

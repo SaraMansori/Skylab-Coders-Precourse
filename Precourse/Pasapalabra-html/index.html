@@ -20,10 +20,10 @@
 				<div class="round-container__interior">
 					<h1 class="interior__game-name">Pasapalabra</h1>
 					<div class="interior__pop-section">
-						<h2 class="pop-section__result">Incorrecto!</h2>
+						<h2 class="pop-section__result" id="answer-evaluation"></h2>
 						<div class="pop-section__correct-answer">
-							<p class="correct-answer__answer--text">La respuesta correcta es:</p>
-							<p class="correct-answer__answer--value">VALOR</p>
+							<p class="correct-answer__answer--text"></p>
+							<p class="correct-answer__answer--value"></p>
 						</div>
 					</div>
 				</div>
@@ -61,7 +61,7 @@
 				<div class="instructions" id="instructions">
 					<div class="instructions__welcome-title"><h2>Bienvenido al juego de Pasapalabra!</h2></div>
 					<br>
-					<p class="instructions__description">Tienes 100 segundos para contestar todas las preguntas del rosco.</p>
+					<p class="instructions__description">Tienes 95 segundos para contestar todas las preguntas del rosco.</p>
 					<br>
 					<p class="instructions__description">Si hay alguna que quieres dejar para la siguiente ronda no tienes más que pulsar "Pasapalabra".</p>
 					<br>
@@ -75,7 +75,7 @@
 				</div>
 			</section>
 			</section class="wrapper">
-				<div class="questions-and-answers" id="questions-area" style="display:none">
+				<div class="questions-and-answers hidden" id="questions-area">
 					<div class="questions-and-answers__letter"><h2 class="letter-text" id="letter-text">Con la A:</h2></div>
 					<br>
 					<p class="questions-and-answers__question" id="question"></p>
