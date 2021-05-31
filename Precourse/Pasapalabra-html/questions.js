@@ -279,6 +279,26 @@ const questions = [
         status: 0,
     },
     {
+        letter: "Ñ",
+        question: "Con la Ñ. Nombre de un color y a la vez de una fruta",
+        answer: "Naranja",
+        status: 0,
+    },
+    {
+        letter: "Ñ",
+        question:
+            "Con la Ñ. En el mundo cristiano, festividad anual en la que se conmemora el nacimiento de Jesucristo",
+        answer: "Navidad",
+        status: 0,
+    },
+    {
+        letter: "Ñ",
+        question:
+            "Con la Ñ. Premio otorgado anualmente por la fundación sueca Alfred Nobel como reconocimiento de méritos excepcionales en diversas actividades",
+        answer: "Nobel",
+        status: 0,
+    },
+    {
         letter: "O",
         question: "Con la O. Objeto Volador No Identificado",
         answer: "OVNI",
@@ -418,10 +438,29 @@ const questions = [
         status: 0,
     },
     {
+        letter: "V",
+        question:
+            "Con la V. Heroína del universo DC cuyo nombre real es Diana de Themyscira",
+        answer: "WonderWoman",
+        status: 0,
+    },
+    {
+        letter: "V",
+        question: "Con la V. Marca de coche alemana",
+        answer: "Wolkswagen",
+        status: 0,
+    },
+    {
+        letter: "V",
+        question: "Con la W. Red informática",
+        answer: "Web",
+        status: 0,
+    },
+    {
         letter: "W",
         question:
             "Con la W. Heroína del universo DC cuyo nombre real es Diana de Themyscira",
-        answer: "Wonder Woman",
+        answer: "WonderWoman",
         status: 0,
     },
     {
@@ -447,6 +486,7 @@ const questions = [
         letter: "X",
         question:
             "Con la X.  Instrumento musical de percusión formado por láminas generalmente de madera, ordenadas horizontalmente según su tamaño y sonido, que se hacen sonar golpeándolas con dos baquetas",
+        answer: "Saxofón",
         status: 0,
     },
     {

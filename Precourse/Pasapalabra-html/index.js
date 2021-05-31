@@ -1,12 +1,15 @@
 let points = 0;
 let errors = 0;
-let thisGameQuestions = [];
-let unansweredQuestions = [];
+let round = 0;
 let playerName = "";
+let correctAnswer = "";
+let thisGameQuestions = [];
 let currentQuestion = 0;
 const timeLeftDisplay = document.querySelector("#seconds-left");
 let timeLeft = 95;
+let playButton = document.getElementById("play-btn");
 
+//Function that starts the timer
 function countdown() {
     window.setInterval(function () {
         if (timeLeft <= 0) {
@@ -17,15 +20,16 @@ function countdown() {
     }, 1000);
 }
 
+//Function that starts all the game
 function play() {
     let userName = document.getElementById("name");
     countdown();
     playerName = userName.value;
     userName.value = "";
-    pasapalabraGame(thisGameQuestions);
+    pasapalabraGame();
 }
 
-let playButton = document.getElementById("play-btn");
+//Hides the instructions and shows the questions
 playButton.onclick = function () {
     document.getElementById("instructions").classList.toggle("hidden");
     document.getElementById("questions-area").classList.toggle("hidden");
@@ -48,6 +52,7 @@ const alphabet = [
     "L",
     "M",
     "N",
+    "Ñ",
     "O",
     "P",
     "Q",
@@ -55,6 +60,7 @@ const alphabet = [
     "S",
     "T",
     "U",
+    "V",
     "W",
     "X",
     "Y",
@@ -71,65 +77,77 @@ const generateRandomQuestion = (letter) => {
 };
 
 //Generate the array with the questions for the game
-const generateThisGameQuestions = () => {
+(function generateThisGameQuestions() {
     for (let i = 0; i < alphabet.length; i++) {
         generateRandomQuestion(alphabet[i]);
     }
-};
+})();
 
-generateThisGameQuestions();
-
-// //Asks the player if they want to play again
-// const wantToReplay = () => {
-//     if (window.confirm("Quieres volver a jugar?")) {
-//         points = 0;
-//         errors = 0;
-//         rounds = 0;
-//         finished = false;
-//         exitedGame = false;
-//         thisGameQuestions = [];
-//         unansweredQuestions = [];
-//         generateThisGameQuestions();
-//         pasapalabraGame(thisGameQuestions);
-//     }
-// };
-
-//Normalizes the introduced word
-
+// Normalizes the introduced word
 const normalize = (word) => {
     let normalizedWord = word
-        .normalize("NFD")
+        // .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
         .toLowerCase();
     return normalizedWord;
 };
 
-let pasapalabra = (array) => {
-    if (currentQuestion < array.length - 1) {
-        document
-            .querySelector(".interior__game-name")
-            .classList.remove("hidden");
-        document
-            .querySelector(".interior__pop-section")
-            .classList.add("hidden");
+//checks if the round is finished
+let roundFinished = () => {
+    let finished = currentQuestion < thisGameQuestions.length ? false : true;
+    return finished;
+};
 
-        currentQuestion++;
-        pasapalabraGame(array);
+//set actions to follow when clicking the answer or pasapalabra button
+let btnPasapalabra = document.getElementById("pasapalabra-btn");
+let btnAnswer = document.getElementById("answer-btn");
+
+btnAnswer.onclick = function () {
+    if (thisGameQuestions[currentQuestion].status === 0 && !roundFinished()) {
+        pasapalabraGame();
+        checkAnswer();
     } else {
-        currentQuestion = 0;
-        unansweredQuestions = thisGameQuestions.filter(
-            (question) => question.status === 0
-        );
-        if (unansweredQuestions.length > 0) {
-            pasapalabraGame(unansweredQuestions);
-        }
+        currentQuestion++;
     }
 };
 
-let checkAnswer = (correctAnswer, array) => {
-    document.querySelector(".interior__game-name").classList.add("hidden");
+btnPasapalabra.onclick = function () {
+    if (thisGameQuestions[currentQuestion].status === 0 && !roundFinished()) {
+        pasapalabra();
+    } else {
+        currentQuestion++;
+    }
+};
+
+// Executes the game
+const pasapalabraGame = () => {
+    if (thisGameQuestions[currentQuestion].status === 0) {
+        let firstPart =
+            thisGameQuestions[currentQuestion].question.split(".")[0];
+        let secondPart = thisGameQuestions[currentQuestion].question
+            .split(".")[1]
+            .trim();
+
+        //Changes the question text
+        document.getElementById("letter-text").innerHTML = `${firstPart}:`;
+        document.getElementById("question").innerHTML = secondPart;
+    } else if (thisGameQuestions[currentQuestion].status !== 0) {
+        currentQuestion++;
+        pasapalabraGame();
+    }
+
+    if (roundFinished()) {
+        currentQuestion = 0;
+    }
+};
+
+let checkAnswer = () => {
+    let correctAnswer = normalize(thisGameQuestions[currentQuestion].answer);
+    document.querySelector(".interior__game-name").classList.add("hidden"); //hides the correct answer values in html
     let userAnswer = document.getElementById("user-answer");
-    let btn = document.getElementById(array[currentQuestion].letter);
+    let btn = document.getElementById(
+        thisGameQuestions[currentQuestion].letter
+    );
     let correctAnswerText = document.querySelector(
         ".correct-answer__answer--text"
     );
@@ -137,6 +155,7 @@ let checkAnswer = (correctAnswer, array) => {
         ".correct-answer__answer--value"
     );
     let answerEvaluation = document.querySelector("#answer-evaluation");
+
     if (normalize(userAnswer.value) !== correctAnswer) {
         btn.classList.add("button--state-incorrect");
         document
@@ -145,8 +164,10 @@ let checkAnswer = (correctAnswer, array) => {
 
         answerEvaluation.innerHTML = "Incorrecto!";
         correctAnswerText.innerHTML = "La respuesta correcta es:";
-        correctAnswerValue.innerHTML = array[currentQuestion].answer;
+        correctAnswerValue.innerHTML =
+            thisGameQuestions[currentQuestion].answer;
         thisGameQuestions[currentQuestion].status = 2;
+
         correctAnswerValue.classList.remove("hidden");
         correctAnswerText.classList.remove("hidden");
         errors++;
@@ -162,35 +183,42 @@ let checkAnswer = (correctAnswer, array) => {
         thisGameQuestions[currentQuestion].status = 1;
         points++;
     }
+
     userAnswer.value = "";
     document.getElementById("points-btn").innerHTML = points;
-    if (currentQuestion < array.length - 1) {
+    currentQuestion++;
+    pasapalabraGame();
+};
+
+// Changes style when pasapalabra is selected
+let pasapalabra = () => {
+    if (!roundFinished()) {
+        document
+            .querySelector(".interior__game-name")
+            .classList.remove("hidden");
+        document
+            .querySelector(".interior__pop-section")
+            .classList.add("hidden");
+
         currentQuestion++;
-        pasapalabraGame(array);
+        pasapalabraGame();
     } else {
         currentQuestion = 0;
-        unansweredQuestions = thisGameQuestions.filter(
-            (question) => question.status === 0
-        );
-        if (unansweredQuestions.length > 0) {
-            pasapalabraGame(unansweredQuestions);
-        }
+        round++;
     }
 };
 
-//Executes the game with the introduced array
-const pasapalabraGame = (array) => {
-    let firstPart = array[currentQuestion].question.split(".")[0];
-    let secondPart = array[currentQuestion].question.split(".")[1].trim();
-    document.getElementById("letter-text").innerText = `${firstPart}:`;
-    document.getElementById("question").innerText = secondPart;
-    let correctAnswer = normalize(array[currentQuestion].answer);
-    let btnAnswer = document.getElementById("answer-btn");
-    btnAnswer.onclick = function () {
-        checkAnswer(correctAnswer, array);
-    };
-    let btnPasapalabra = document.getElementById("pasapalabra-btn");
-    btnPasapalabra.onclick = function () {
-        pasapalabra(array);
-    };
-};
+// //Asks the player if they want to play again
+// const wantToReplay = () => {
+//     if (window.confirm("Quieres volver a jugar?")) {
+//         points = 0;
+//         errors = 0;
+//         rounds = 0;
+//         finished = false;
+//         exitedGame = false;
+//         thisGameQuestions = [];
+//         unansweredQuestions = [];
+//         generateThisGameQuestions();
+//         pasapalabraGame(thisGameQuestions);
+//     }
+// };
