@@ -4,6 +4,7 @@ let round = 0;
 let playerName = "";
 let correctAnswer = "";
 let thisGameQuestions = [];
+let unansweredQuestions = [];
 let currentQuestion = 0;
 const timeLeftDisplay = document.querySelector("#seconds-left");
 let timeLeft = 95;
@@ -26,7 +27,7 @@ function play() {
     countdown();
     playerName = userName.value;
     userName.value = "";
-    pasapalabraGame();
+    changeDisplayedText();
 }
 
 //Hides the instructions and shows the questions
@@ -94,7 +95,11 @@ const normalize = (word) => {
 
 //checks if the round is finished
 let roundFinished = () => {
-    let finished = currentQuestion < thisGameQuestions.length ? false : true;
+    let finished =
+        currentQuestion < thisGameQuestions.length - 1 ? false : true;
+    document
+        .getElementById(thisGameQuestions[currentQuestion].letter)
+        .classList.remove("active");
     return finished;
 };
 
@@ -103,42 +108,32 @@ let btnPasapalabra = document.getElementById("pasapalabra-btn");
 let btnAnswer = document.getElementById("answer-btn");
 
 btnAnswer.onclick = function () {
-    if (thisGameQuestions[currentQuestion].status === 0 && !roundFinished()) {
-        pasapalabraGame();
-        checkAnswer();
-    } else {
-        currentQuestion++;
-    }
+    checkAnswer();
 };
 
 btnPasapalabra.onclick = function () {
-    if (thisGameQuestions[currentQuestion].status === 0 && !roundFinished()) {
-        pasapalabra();
-    } else {
-        currentQuestion++;
-    }
+    unansweredQuestions.push(thisGameQuestions[currentQuestion]);
+    pasapalabra();
 };
 
 // Executes the game
-const pasapalabraGame = () => {
-    if (thisGameQuestions[currentQuestion].status === 0) {
-        let firstPart =
-            thisGameQuestions[currentQuestion].question.split(".")[0];
-        let secondPart = thisGameQuestions[currentQuestion].question
-            .split(".")[1]
-            .trim();
+const changeDisplayedText = () => {
+    let firstPart = thisGameQuestions[currentQuestion].question.split(".")[0];
+    let secondPart = thisGameQuestions[currentQuestion].question
+        .split(".")[1]
+        .trim();
+    if (currentQuestion > 0)
+        document
+            .getElementById(thisGameQuestions[currentQuestion - 1].letter)
+            .classList.remove("active");
 
-        //Changes the question text
-        document.getElementById("letter-text").innerHTML = `${firstPart}:`;
-        document.getElementById("question").innerHTML = secondPart;
-    } else if (thisGameQuestions[currentQuestion].status !== 0) {
-        currentQuestion++;
-        pasapalabraGame();
-    }
+    document
+        .getElementById(thisGameQuestions[currentQuestion].letter)
+        .classList.add("active");
 
-    if (roundFinished()) {
-        currentQuestion = 0;
-    }
+    //Changes the question text
+    document.getElementById("letter-text").innerHTML = `${firstPart}:`;
+    document.getElementById("question").innerHTML = secondPart;
 };
 
 let checkAnswer = () => {
@@ -184,28 +179,41 @@ let checkAnswer = () => {
         points++;
     }
 
+    if (roundFinished()) {
+        if (unansweredQuestions.length > 0) {
+            currentQuestion = 0;
+            thisGameQuestions = unansweredQuestions;
+            unansweredQuestions = [];
+        } else {
+            console.log("game finished");
+            document
+                .getElementById(unansweredQuestions[currentQuestion].letter)
+                .classList.remove("active");
+        }
+    } else {
+        currentQuestion++;
+    }
+
     userAnswer.value = "";
     document.getElementById("points-btn").innerHTML = points;
-    currentQuestion++;
-    pasapalabraGame();
+    changeDisplayedText();
 };
 
 // Changes style when pasapalabra is selected
 let pasapalabra = () => {
-    if (!roundFinished()) {
-        document
-            .querySelector(".interior__game-name")
-            .classList.remove("hidden");
-        document
-            .querySelector(".interior__pop-section")
-            .classList.add("hidden");
+    // if (!roundFinished()) {
+    document.querySelector(".interior__game-name").classList.remove("hidden");
+    document.querySelector(".interior__pop-section").classList.add("hidden");
 
-        currentQuestion++;
-        pasapalabraGame();
-    } else {
+    if (roundFinished()) {
         currentQuestion = 0;
-        round++;
+        thisGameQuestions = unansweredQuestions;
+        unansweredQuestions = [];
+    } else {
+        currentQuestion++;
     }
+
+    changeDisplayedText();
 };
 
 // //Asks the player if they want to play again
