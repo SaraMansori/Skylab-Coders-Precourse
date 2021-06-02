@@ -216,6 +216,10 @@ let pasapalabra = () => {
     changeDisplayedText();
 };
 
+const finishedGame = () => {
+    //function that shows the ranking and the goodbye message
+};
+
 // //Asks the player if they want to play again
 // const wantToReplay = () => {
 //     if (window.confirm("Quieres volver a jugar?")) {
