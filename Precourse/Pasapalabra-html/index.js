@@ -192,6 +192,7 @@ let checkAnswer = () => {
         }
     } else {
         currentQuestion++;
+        finishedGame;
     }
 
     userAnswer.value = "";
@@ -217,6 +218,9 @@ let pasapalabra = () => {
 };
 
 const finishedGame = () => {
+    console.log("hola mario");
+    const game = document.querySelector(".wrapper2");
+    game.classList.add("hidden");
     //function that shows the ranking and the goodbye message
 };
 
