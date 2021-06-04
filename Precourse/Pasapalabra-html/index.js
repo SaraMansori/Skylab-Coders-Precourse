@@ -5,21 +5,28 @@ let playerName = "";
 let correctAnswer = "";
 let thisGameQuestions = [];
 let unansweredQuestions = [];
+let finished = false;
 let currentQuestion = 0;
 const timeLeftDisplay = document.querySelector("#seconds-left");
 let timeLeft = 95;
 let playButton = document.getElementById("play-btn");
+let timer = "";
 
 //Function that starts the timer
 function countdown() {
-    window.setInterval(function () {
-        if (timeLeft <= 0) {
-            clearInterval((timeLeft = 0));
+    timer = setInterval(function () {
+        if (timeLeft >= 0) {
+            timeLeftDisplay.innerHTML = timeLeft;
+            timeLeft -= 1;
+        } else {
+            endGame();
         }
-        timeLeftDisplay.innerHTML = timeLeft;
-        timeLeft -= 1;
     }, 1000);
 }
+
+const endGame = () => {
+    clearInterval(timer);
+};
 
 //Function that starts all the game
 function play() {
@@ -122,10 +129,11 @@ const changeDisplayedText = () => {
     let secondPart = thisGameQuestions[currentQuestion].question
         .split(".")[1]
         .trim();
-    if (currentQuestion > 0)
+    if (currentQuestion > 0) {
         document
             .getElementById(thisGameQuestions[currentQuestion - 1].letter)
             .classList.remove("active");
+    }
 
     document
         .getElementById(thisGameQuestions[currentQuestion].letter)
@@ -185,19 +193,16 @@ let checkAnswer = () => {
             thisGameQuestions = unansweredQuestions;
             unansweredQuestions = [];
         } else {
-            console.log("game finished");
-            document
-                .getElementById(unansweredQuestions[currentQuestion].letter)
-                .classList.remove("active");
+            finished = true;
+            finishedGame();
         }
     } else {
         currentQuestion++;
-        finishedGame;
     }
 
     userAnswer.value = "";
     document.getElementById("points-btn").innerHTML = points;
-    changeDisplayedText();
+    if (!finished) changeDisplayedText();
 };
 
 // Changes style when pasapalabra is selected
@@ -213,15 +218,20 @@ let pasapalabra = () => {
     } else {
         currentQuestion++;
     }
-
     changeDisplayedText();
 };
 
 const finishedGame = () => {
-    console.log("hola mario");
-    const game = document.querySelector(".wrapper2");
+    const game = document.querySelector("#questions-area");
+    const endMessage = document.querySelector(".name-end-message");
+    const pointsMessage = document.querySelector(".points-end");
     game.classList.add("hidden");
-    //function that shows the ranking and the goodbye message
+    endGame();
+    document.querySelector(".interior__pop-section").classList.add("hidden");
+    document.querySelector(".interior__game-name").classList.remove("hidden");
+    endMessage.innerHTML = `${playerName}, el juego ha terminado!`;
+    pointsMessage.innerHTML = `Has conseguido un total de ${points} puntos`;
+    endMessage.classList.remove("hidden");
 };
 
 // //Asks the player if they want to play again
