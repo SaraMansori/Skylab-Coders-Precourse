@@ -11,6 +11,7 @@ const timeLeftDisplay = document.querySelector("#seconds-left");
 let timeLeft = 95;
 let playButton = document.getElementById("play-btn");
 let timer = "";
+let nameField = document.getElementById("name");
 
 //Function that starts the timer
 function countdown() {
@@ -30,7 +31,7 @@ const endGame = () => {
 
 //Function that starts all the game
 function play() {
-    let userName = document.getElementById("name");
+    let userName = nameField.innerHTML;
     countdown();
     playerName = userName.value;
     userName.value = "";
@@ -43,6 +44,14 @@ playButton.onclick = function () {
     document.getElementById("questions-area").classList.toggle("hidden");
     play();
 };
+
+nameField.addEventListener("keypress", function (e) {
+    if (e.key === "Enter") {
+        document.getElementById("instructions").classList.toggle("hidden");
+        document.getElementById("questions-area").classList.toggle("hidden");
+        play();
+    }
+});
 
 //Auxiliar array with alphabet letter
 const alphabet = [
@@ -94,7 +103,7 @@ const generateRandomQuestion = (letter) => {
 // Normalizes the introduced word
 const normalize = (word) => {
     let normalizedWord = word
-        // .normalize("NFD")
+        .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
         .toLowerCase();
     return normalizedWord;
@@ -117,6 +126,19 @@ let btnAnswer = document.getElementById("answer-btn");
 btnAnswer.onclick = function () {
     checkAnswer();
 };
+
+answerField = document.getElementById("user-answer");
+answerField.addEventListener("keypress", function (e) {
+    if (e.key === "Enter") {
+        if (document.getElementById("user-answer").value === "") {
+            console.log("funciona");
+            unansweredQuestions.push(thisGameQuestions[currentQuestion]);
+            pasapalabra();
+        } else {
+            checkAnswer();
+        }
+    }
+});
 
 btnPasapalabra.onclick = function () {
     unansweredQuestions.push(thisGameQuestions[currentQuestion]);
@@ -145,64 +167,72 @@ const changeDisplayedText = () => {
 };
 
 let checkAnswer = () => {
-    let correctAnswer = normalize(thisGameQuestions[currentQuestion].answer);
-    document.querySelector(".interior__game-name").classList.add("hidden"); //hides the correct answer values in html
-    let userAnswer = document.getElementById("user-answer");
-    let btn = document.getElementById(
-        thisGameQuestions[currentQuestion].letter
-    );
-    let correctAnswerText = document.querySelector(
-        ".correct-answer__answer--text"
-    );
-    let correctAnswerValue = document.querySelector(
-        ".correct-answer__answer--value"
-    );
-    let answerEvaluation = document.querySelector("#answer-evaluation");
-
-    if (normalize(userAnswer.value) !== correctAnswer) {
-        btn.classList.add("button--state-incorrect");
-        document
-            .querySelector(".interior__pop-section")
-            .classList.remove("hidden");
-
-        answerEvaluation.innerHTML = "Incorrecto!";
-        correctAnswerText.innerHTML = "La respuesta correcta es:";
-        correctAnswerValue.innerHTML =
-            thisGameQuestions[currentQuestion].answer;
-        thisGameQuestions[currentQuestion].status = 2;
-
-        correctAnswerValue.classList.remove("hidden");
-        correctAnswerText.classList.remove("hidden");
-        errors++;
-    } else if (normalize(userAnswer.value) === correctAnswer) {
-        btn.classList.add("button--state-correct");
-        document
-            .querySelector(".interior__pop-section")
-            .classList.remove("hidden");
-
-        answerEvaluation.innerHTML = "Correcto!";
-        correctAnswerText.classList.add("hidden");
-        correctAnswerValue.classList.add("hidden");
-        thisGameQuestions[currentQuestion].status = 1;
-        points++;
-    }
-
-    if (roundFinished()) {
-        if (unansweredQuestions.length > 0) {
-            currentQuestion = 0;
-            thisGameQuestions = unansweredQuestions;
-            unansweredQuestions = [];
-        } else {
-            finished = true;
-            finishedGame();
-        }
+    if (document.getElementById("user-answer").value === "") {
+        console.log("funciona");
+        unansweredQuestions.push(thisGameQuestions[currentQuestion]);
+        pasapalabra();
     } else {
-        currentQuestion++;
-    }
+        let userAnswer = document.getElementById("user-answer");
+        let correctAnswer = normalize(
+            thisGameQuestions[currentQuestion].answer
+        );
+        document.querySelector(".interior__game-name").classList.add("hidden"); //hides the correct answer values in html
+        let btn = document.getElementById(
+            thisGameQuestions[currentQuestion].letter
+        );
+        let correctAnswerText = document.querySelector(
+            ".correct-answer__answer--text"
+        );
+        let correctAnswerValue = document.querySelector(
+            ".correct-answer__answer--value"
+        );
+        let answerEvaluation = document.querySelector("#answer-evaluation");
 
-    userAnswer.value = "";
-    document.getElementById("points-btn").innerHTML = points;
-    if (!finished) changeDisplayedText();
+        if (normalize(userAnswer.value) !== correctAnswer) {
+            btn.classList.add("button--state-incorrect");
+            document
+                .querySelector(".interior__pop-section")
+                .classList.remove("hidden");
+
+            answerEvaluation.innerHTML = "Incorrecto!";
+            correctAnswerText.innerHTML = "La respuesta correcta es:";
+            correctAnswerValue.innerHTML =
+                thisGameQuestions[currentQuestion].answer;
+            thisGameQuestions[currentQuestion].status = 2;
+
+            correctAnswerValue.classList.remove("hidden");
+            correctAnswerText.classList.remove("hidden");
+            errors++;
+        } else if (normalize(userAnswer.value) === correctAnswer) {
+            btn.classList.add("button--state-correct");
+            document
+                .querySelector(".interior__pop-section")
+                .classList.remove("hidden");
+
+            answerEvaluation.innerHTML = "Correcto!";
+            correctAnswerText.classList.add("hidden");
+            correctAnswerValue.classList.add("hidden");
+            thisGameQuestions[currentQuestion].status = 1;
+            points++;
+        }
+
+        if (roundFinished()) {
+            if (unansweredQuestions.length > 0) {
+                currentQuestion = 0;
+                thisGameQuestions = unansweredQuestions;
+                unansweredQuestions = [];
+            } else {
+                finished = true;
+                finishedGame();
+            }
+        } else {
+            currentQuestion++;
+        }
+
+        userAnswer.value = "";
+        document.getElementById("points-btn").innerHTML = points;
+        if (!finished) changeDisplayedText();
+    }
 };
 
 // Changes style when pasapalabra is selected
