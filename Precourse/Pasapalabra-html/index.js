@@ -31,6 +31,7 @@ const endGame = () => {
 
 //Function that starts all the game
 function play() {
+    generateThisGameQuestions();
     let userName = nameField.innerHTML;
     countdown();
     playerName = userName.value;
@@ -94,11 +95,11 @@ const generateRandomQuestion = (letter) => {
 };
 
 //Generate the array with the questions for the game
-(function generateThisGameQuestions() {
+function generateThisGameQuestions() {
     for (let i = 0; i < alphabet.length; i++) {
         generateRandomQuestion(alphabet[i]);
     }
-})();
+}
 
 // Normalizes the introduced word
 const normalize = (word) => {
@@ -131,7 +132,6 @@ answerField = document.getElementById("user-answer");
 answerField.addEventListener("keypress", function (e) {
     if (e.key === "Enter") {
         if (document.getElementById("user-answer").value === "") {
-            console.log("funciona");
             unansweredQuestions.push(thisGameQuestions[currentQuestion]);
             pasapalabra();
         } else {
@@ -147,28 +147,30 @@ btnPasapalabra.onclick = function () {
 
 // Executes the game
 const changeDisplayedText = () => {
-    let firstPart = thisGameQuestions[currentQuestion].question.split(".")[0];
-    let secondPart = thisGameQuestions[currentQuestion].question
-        .split(".")[1]
-        .trim();
-    if (currentQuestion > 0) {
+    if (thisGameQuestions[currentQuestion]) {
+        let firstPart =
+            thisGameQuestions[currentQuestion].question.split(".")[0];
+        let secondPart = thisGameQuestions[currentQuestion].question
+            .split(".")[1]
+            .trim();
+        if (currentQuestion > 0) {
+            document
+                .getElementById(thisGameQuestions[currentQuestion - 1].letter)
+                .classList.remove("active");
+        }
+
         document
-            .getElementById(thisGameQuestions[currentQuestion - 1].letter)
-            .classList.remove("active");
+            .getElementById(thisGameQuestions[currentQuestion].letter)
+            .classList.add("active");
+
+        //Changes the question text
+        document.getElementById("letter-text").innerHTML = `${firstPart}:`;
+        document.getElementById("question").innerHTML = secondPart;
     }
-
-    document
-        .getElementById(thisGameQuestions[currentQuestion].letter)
-        .classList.add("active");
-
-    //Changes the question text
-    document.getElementById("letter-text").innerHTML = `${firstPart}:`;
-    document.getElementById("question").innerHTML = secondPart;
 };
 
 let checkAnswer = () => {
     if (document.getElementById("user-answer").value === "") {
-        console.log("funciona");
         unansweredQuestions.push(thisGameQuestions[currentQuestion]);
         pasapalabra();
     } else {
@@ -253,28 +255,47 @@ let pasapalabra = () => {
 
 const finishedGame = () => {
     const game = document.querySelector("#questions-area");
-    const endMessage = document.querySelector(".name-end-message");
-    const pointsMessage = document.querySelector(".points-end");
+    document.querySelector(".end-section").classList.remove("hidden");
+    document.querySelector(".end-section").classList.add("flex");
     game.classList.add("hidden");
     endGame();
     document.querySelector(".interior__pop-section").classList.add("hidden");
-    document.querySelector(".interior__game-name").classList.remove("hidden");
-    endMessage.innerHTML = `${playerName}, el juego ha terminado!`;
-    pointsMessage.innerHTML = `Has conseguido un total de ${points} puntos`;
-    endMessage.classList.remove("hidden");
+    document.querySelector(".interior__game-name").classList.add("hidden");
+    const endSectionPoints = document.getElementById("end-section-points");
+    endSectionPoints.innerHTML = `Has obtenido ${points} puntos`;
+    const endSectionSeconds = document.getElementById("end-section-seconds");
+    endSectionSeconds.innerHTML = `Te han sobrado ${timeLeft + 1} segundos`;
+    const replayButton = document.getElementById("play-again-btn");
+    restartVariables();
+    replayButton.onclick = function () {
+        newGame();
+    };
 };
 
-// //Asks the player if they want to play again
-// const wantToReplay = () => {
-//     if (window.confirm("Quieres volver a jugar?")) {
-//         points = 0;
-//         errors = 0;
-//         rounds = 0;
-//         finished = false;
-//         exitedGame = false;
-//         thisGameQuestions = [];
-//         unansweredQuestions = [];
-//         generateThisGameQuestions();
-//         pasapalabraGame(thisGameQuestions);
-//     }
-// };
+const restartVariables = () => {
+    points = 0;
+    errors = 0;
+    round = 0;
+    playerName = "";
+    correctAnswer = "";
+    thisGameQuestions = [];
+    unansweredQuestions = [];
+    finished = false;
+    currentQuestion = 0;
+    timeLeft = 95;
+    timer = "";
+};
+
+const newGame = () => {
+    const letterCircles = document.getElementsByClassName("button");
+    for (let i = 0; i < letterCircles.length; i++) {
+        letterCircles[i].classList.remove("button--state-incorrect");
+        letterCircles[i].classList.remove("button--state-correct");
+    }
+    document.getElementById("instructions").classList.add("hidden");
+    document.getElementById("questions-area").classList.remove("hidden");
+    document.querySelector(".end-section").classList.remove("flex");
+    document.querySelector(".end-section").classList.add("hidden");
+    document.querySelector(".interior__game-name").classList.remove("hidden");
+    play();
+};
