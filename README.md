@@ -17,7 +17,7 @@
 ✅ **Bingo** 
 * **Technologies:** Javascript 
 * Bingo game using prompts and alerts
-*
+
 ✅ **Calculator w/ HTML** 
 * **Technologies:** Javascript | HTML | CSS | Figma 
 * Calculator designed in Figma and created using JS, HTML & CSS 
