@@ -226,6 +226,7 @@ const finishedGame = () => {
     const endMessage = document.querySelector(".name-end-message");
     const pointsMessage = document.querySelector(".points-end");
     game.classList.add("hidden");
+    
     endGame();
     document.querySelector(".interior__pop-section").classList.add("hidden");
     document.querySelector(".interior__game-name").classList.remove("hidden");
