@@ -9,7 +9,8 @@
 body {
     height: 100vh;
     display: grid;
-    grid-template-columns: 10% auto;
+    grid-template-columns: 60% auto;
+    grid-template-rows: 7% 1fr 1fr;
     align-items: center;
     background: #ffafbd; /* fallback for old browsers */
     background: -webkit-linear-gradient(
@@ -22,12 +23,59 @@ body {
         #ffc3a0,
         #ffafbd
     ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    font-family: "Roboto", sans-serif;
+    font-family: "Roboto Mono", monospace;
+}
+
+.header {
+    background-color: rgb(190, 38, 102);
+    grid-column-start: 1;
+    grid-column-end: 3;
+    height: 100%;
+    color: white;
 }
 
 .title {
-    color: #a06340;
-    margin: auto;
+    color: rgb(190, 38, 102);
+    font-size: 3em;
+    justify-self: start;
+    grid-column-start: 2;
+    grid-row-start: 2;
+    grid-row-end: 2;
+    align-self: end;
+    border-right: 2px solid rgba(255, 255, 255, 0.75);
+    white-space: nowrap;
+    overflow: hidden;
+    transform: translateY(-50%);
+}
+
+.anim-typewriter {
+    animation: typewriter 3s steps(14) 1s 1 normal both,
+        blinkTextCursor 500ms steps(14) infinite normal;
+}
+
+@keyframes typewriter {
+    from {
+        width: 0;
+    }
+    to {
+        width: 8.5em;
+    }
+}
+
+@keyframes blinkTextCursor {
+    from {
+        border-right-color: rgba(255, 255, 255, 0.75);
+    }
+    to {
+        border-right-color: transparent;
+    }
+}
+
+.game-description {
+    color: white;
+    align-self: start;
+    width: 60%;
+    font-size: 20px;
 }
 
 .wrapper {
@@ -37,7 +85,14 @@ body {
     margin: auto;
     border-radius: 20px;
     border: 3px solid rgb(255, 255, 255);
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    box-shadow: -3px -6px 0px #a06340;
+    grid-column-start: 1;
+    grid-column-end: 1;
+    grid-row-start: 2;
+    grid-row-end: 4;
+    margin: 2rem;
+    justify-self: end;
+    /* box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px; */
 }
 
 .front-pannel {
@@ -74,12 +129,39 @@ body {
 
 .front-pannel.circle.pink {
     background: rgb(255, 110, 175);
+    background: -webkit-repeating-linear-gradient(
+        -45deg,
+        rgb(255, 110, 175),
+        rgb(255, 110, 175) 3px,
+        rgb(255, 165, 205) 3px,
+        rgb(255, 165, 205) 7px
+    );
+    background: repeating-linear-gradient(
+        -45deg,
+        rgb(255, 110, 175),
+        rgb(255, 110, 175) 3px,
+        rgb(255, 165, 205) 3px,
+        rgb(255, 165, 205) 7px
+    );
     z-index: 1;
     box-shadow: none;
 }
 
 .front-pannel.circle.orange {
-    background: rgb(255, 126, 75);
+    background: -webkit-repeating-linear-gradient(
+        -45deg,
+        #ffaa88,
+        #ffaa88 3px,
+        #ffcb9b 3px,
+        #ffcb9b 7px
+    );
+    background: repeating-linear-gradient(
+        -45deg,
+        #ffaa88,
+        #ffaa88 3px,
+        #ffcb9b 3px,
+        #ffcb9b 7px
+    );
     z-index: 1;
     box-shadow: none;
 }
